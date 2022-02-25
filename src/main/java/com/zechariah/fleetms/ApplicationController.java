@@ -15,4 +15,14 @@ public class ApplicationController {
     public String widgetsPage(){
         return "widgets";
     }
+
+    @GetMapping("/_layout")
+    public String layoutPage(){
+        return "_layout";
+    }
+
+    @GetMapping("/index2")
+    public String index2Page(){
+        return "index2";
+    }
 }
