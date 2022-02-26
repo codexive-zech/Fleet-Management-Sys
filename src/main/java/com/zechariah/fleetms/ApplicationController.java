@@ -25,4 +25,34 @@ public class ApplicationController {
     public String index2Page(){
         return "index2";
     }
+
+    @GetMapping("/hr")
+    public String hrIndexPage(){
+        return "hr/index";
+    }
+
+    @GetMapping("/account")
+    public String accountIndexPage(){
+        return "account/index";
+    }
+
+    @GetMapping("/fleet")
+    public String vehicleIndexPage(){
+        return "fleet/index";
+    }
+
+    @GetMapping("/payroll")
+    public String payrollIndexPage(){
+        return "payroll/index";
+    }
+
+    @GetMapping("/helpdesk")
+    public String itIndexPage(){
+        return "helpdesk/index";
+    }
+
+    @GetMapping("/parameter")
+    public String parameterIndexPage(){
+        return "parameter/index";
+    }
 }
