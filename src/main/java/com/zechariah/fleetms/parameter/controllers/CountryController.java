@@ -15,12 +15,16 @@ public class CountryController {
     @Autowired
     private CountryService countryService;
 
+// Display All Country
+
     @GetMapping("/countries")
     public String getAllCountry(Model model){
       List<Country> countries = countryService.getAllCountry();
       model.addAttribute("countries", countries);
         return "parameter/countryList";
     }
+
+// Display The Add Country Form Web Page
 
     @GetMapping("/countryAdd")
     public String getNewCountry(){
@@ -50,5 +54,14 @@ public class CountryController {
     public String editCountry(Country country){
         countryService.saveCountry(country);
         return "redirect:/countries";
+    }
+
+//    Display Country Details
+
+    @GetMapping("/countryDetails/{id}")
+    public String getCountryDetails(@PathVariable Integer id, Model model){
+        Country country = countryService.editCountry(id);
+        model.addAttribute("country", country);
+        return "parameter/countryDetails";
     }
 }

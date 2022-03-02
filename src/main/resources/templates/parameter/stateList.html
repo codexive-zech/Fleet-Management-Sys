@@ -40,7 +40,7 @@
 
                         <td>
                             <div class="btn-group">
-                                <a class="btn btn-primary" href="#"><i class="icon_plus_alt2"></i></a>
+                                <a class="btn btn-primary" th:href="@{'/stateDetails/' + ${state.id}}"><i class="icon_plus_alt2"></i></a>
                                 <a class="btn btn-success" th:href="@{'/stateEdit/' + ${state.id}}"><i class="icon_check_alt2"></i></a>
                                 <a class="btn btn-danger" th:href="@{'/states/delete/' + ${state.id}}"><i class="icon_close_alt2"></i></a>
                             </div>

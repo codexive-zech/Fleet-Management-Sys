@@ -1,6 +1,6 @@
 package com.zechariah.fleetms.parameter.controllers;
 
-import com.zechariah.fleetms.parameter.models.Country;
+
 import com.zechariah.fleetms.parameter.models.State;
 import com.zechariah.fleetms.parameter.services.StateService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,5 +51,13 @@ public class StateController {
     public String editState(State state){
         stateService.saveState(state);
         return "redirect:/states";
+    }
+
+//    Display State
+    @GetMapping("/stateDetails/{id}")
+    public String getStateDetails(@PathVariable Integer id, Model model){
+        State state = stateService.editState(id);
+        model.addAttribute("state", state);
+        return "parameter/stateDetails";
     }
 }
