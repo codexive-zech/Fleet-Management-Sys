@@ -62,6 +62,53 @@
                   </div>
                   </form>
               </div>
+
+    <!--     Displaying List of States Available in a Country-->
+          <div class="row">
+                  <div class="col-lg-12">
+                      <section class="panel">
+                          <header class="panel-heading">
+                              List of States in <span th:text="${country.description}"></span>
+                          </header>
+                          <div class="panel-body">
+                              <div class="table-responsive">
+                                  <table class="table table-striped table-advance table-hover">
+                                      <thead>
+                                      <tr>
+                                          <th><i class="icon_profile"></i> Country ID</th>
+                                          <th><i class="icon_calendar"></i> State Name</th>
+                                          <th><i class="icon_mail_alt"></i> capital</th>
+                                          <th><i class="icon_pin_alt"></i> Code</th>
+                                          <!--                        <th><i class="icon_mobile"></i> Detail</th>-->
+                                          <th><i class="icon_cogs"></i> Action</th>
+                                      </tr>
+                                      </thead>
+                                      <tbody>
+                                      <tr th:each="state : ${country.states}">
+                                          <td th:text="${state.countryid}"></td>
+                                          <td th:text="${state.name}"></td>
+                                          <td th:text="${state.capital}"></td>
+                                          <td th:text="${state.code}"></td>
+                                          <!--                        <td th:text="${state.details}"></td>-->
+
+                                          <td>
+                                              <div class="btn-group">
+                                                  <a class="btn btn-primary" th:href="@{'/stateDetails/' + ${state.id}}"><i class="icon_plus_alt2"></i></a>
+                                                  <a class="btn btn-success" th:href="@{'/stateEdit/' + ${state.id}}"><i class="icon_check_alt2"></i></a>
+                                                  <a class="btn btn-danger" th:href="@{'/states/delete/' + ${state.id}}"><i class="icon_close_alt2"></i></a>
+                                              </div>
+
+                                          </td>
+                                      </tr>
+
+                                      </tbody>
+                                  </table>
+                              </div>
+                          </div>
+                      </section>
+                  </div>
+          </div>
+
           </div>
           </div>
 </body>

@@ -15,6 +15,7 @@ public class CountryController {
     @Autowired
     private CountryService countryService;
 
+
 // Display All Country
 
     @GetMapping("/countries")
@@ -29,6 +30,13 @@ public class CountryController {
     @GetMapping("/countryAdd")
     public String getNewCountry(){
         return "parameter/countryAdd";
+    }
+
+    //The Get Country By Id
+    @GetMapping("/parameters/country/{id}")
+    @ResponseBody
+    public Country getCountry(@PathVariable Integer id){
+        return countryService.editCountry(id);
     }
 
     @PostMapping("/countries")

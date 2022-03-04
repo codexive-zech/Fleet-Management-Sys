@@ -54,8 +54,6 @@ public class StateController {
 
     @GetMapping("stateEdit/{id}")
     public String getEditState(@PathVariable Integer id, Model model){
-//        State state = stateService.editState(id);
-//        model.addAttribute("state", state);
         getModel(model);
         model.addAttribute("state", stateService.editState(id));
         return "parameter/stateEdit";

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<!-- The xml:layout attribute enable this page to use the _layout page codes and render that instead-->
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="_layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Display State</title>
+</head>
+<body>
+  <div layout:fragment="content">
+      <div class="container" style="width: 70%">
+
+            <!--Add New Country Form-->
+              <div class="row">
+                  <form class="form-horizontal " method="put">
+                  <div class="col-lg-12">
+                      <section class="panel">
+                          <header class="panel-heading">
+                              Displaying Current Location
+                          </header>
+                          <div class="panel-body">
+                              <div class="form-group">
+                                  <label class="control-label col-sm-4">ID</label>
+                                  <div class="col-sm-6">
+                                      <input name="id" type="text" class="form-control" id="idAdd" readonly>
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <label class="control-label col-sm-4">Description</label>
+                                  <div class="col-sm-6">
+                                      <input name="description" class="form-control" type="text" id="descriptionAdd" readonly>
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <label class="control-label col-sm-4">City</label>
+                                  <div class="col-sm-6">
+                                      <input name="city" type="text" class=" form-control" id="cityAdd" readonly/>
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <label class="control-label col-sm-4">Address</label>
+                                  <div class="col-sm-6">
+                                      <input name="address" type="text" class="form-control" id="addressAdd" readonly>
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <label class="control-label col-sm-4">Country</label>
+                                  <div class="col-sm-6">
+                                      <select class="form-control" name="countryid" id="ddlCountryAdd" readonly>
+                                          <option>-SELECT-</option>
+                                          <option th:each="country : ${countries}"
+                                                  th:value="${country.id}"
+                                                  th:text="${country.description}"></option>
+                                      </select>
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <label class="control-label col-sm-4">State</label>
+                                  <div class="col-sm-6">
+                                      <select class="form-control" name="stateid" id="ddlStateAdd" readonly>
+                                          <option th:value="${null}">-SELECT-</option>
+                                          <option th:each="state : ${states}"
+                                                  th:value="${state.id}"
+                                                  th:text="${state.name}"></option>
+                                      </select>
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <label class="control-label col-sm-4">Details</label>
+                                  <div class="col-sm-6">
+                                      <input name="details" type="text" class="form-control" id="detailsAdd" readonly>
+                                  </div>
+                              </div>
+                          </div>
+                      </section>
+                <!--  Saving and Exit Buttons-->
+                      <section class="panel">
+                          <div class="panel-body text-center">
+                              <button type="submit" class="btn btn-success" disabled>Save Location</button>
+                              <a href="/locations" class="btn btn-danger">Back</a>
+                          </div>
+                      </section>
+                  </div>
+                  </form>
+              </div>
+          </div>
+          </div>
+</body>
+</html>
