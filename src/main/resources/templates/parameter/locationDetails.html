@@ -5,7 +5,7 @@
       layout:decorate="_layout">
 <head>
     <meta charset="UTF-8">
-    <title>Display State</title>
+    <title>Display Location</title>
 </head>
 <body>
   <div layout:fragment="content">
@@ -21,55 +21,49 @@
                           </header>
                           <div class="panel-body">
                               <div class="form-group">
-                                  <label class="control-label col-sm-4">ID</label>
-                                  <div class="col-sm-6">
-                                      <input name="id" type="text" class="form-control" id="idAdd" readonly>
-                                  </div>
-                              </div>
-                              <div class="form-group">
                                   <label class="control-label col-sm-4">Description</label>
                                   <div class="col-sm-6">
-                                      <input name="description" class="form-control" type="text" id="descriptionAdd" readonly>
+                                      <input name="description" th:value="${location.description}" class="form-control" type="text" id="descriptionAdd" readonly>
                                   </div>
                               </div>
                               <div class="form-group">
                                   <label class="control-label col-sm-4">City</label>
                                   <div class="col-sm-6">
-                                      <input name="city" type="text" class=" form-control" id="cityAdd" readonly/>
+                                      <input name="city" type="text" th:value="${location.city}" class=" form-control" id="cityAdd" readonly/>
                                   </div>
                               </div>
                               <div class="form-group">
                                   <label class="control-label col-sm-4">Address</label>
                                   <div class="col-sm-6">
-                                      <input name="address" type="text" class="form-control" id="addressAdd" readonly>
+                                      <input name="address" type="text"  th:value="${location.address}"class="form-control" id="addressAdd" readonly>
                                   </div>
                               </div>
-                              <div class="form-group">
-                                  <label class="control-label col-sm-4">Country</label>
-                                  <div class="col-sm-6">
-                                      <select class="form-control" name="countryid" id="ddlCountryAdd" readonly>
-                                          <option>-SELECT-</option>
-                                          <option th:each="country : ${countries}"
-                                                  th:value="${country.id}"
-                                                  th:text="${country.description}"></option>
-                                      </select>
-                                  </div>
-                              </div>
-                              <div class="form-group">
-                                  <label class="control-label col-sm-4">State</label>
-                                  <div class="col-sm-6">
-                                      <select class="form-control" name="stateid" id="ddlStateAdd" readonly>
-                                          <option th:value="${null}">-SELECT-</option>
-                                          <option th:each="state : ${states}"
-                                                  th:value="${state.id}"
-                                                  th:text="${state.name}"></option>
-                                      </select>
-                                  </div>
-                              </div>
+<!--                              <div class="form-group">-->
+<!--                                  <label class="control-label col-sm-4">Country</label>-->
+<!--                                  <div class="col-sm-6">-->
+<!--                                      <select class="form-control" th:value="${location.countryid}" name="countryid" id="ddlCountryAdd" readonly>-->
+<!--                                          <option>-SELECT-</option>-->
+<!--                                          <option th:each="country : ${countries}"-->
+<!--                                                  th:value="${country.id}"-->
+<!--                                                  th:text="${country.description}"></option>-->
+<!--                                      </select>-->
+<!--                                  </div>-->
+<!--                              </div>-->
+<!--                              <div class="form-group">-->
+<!--                                  <label class="control-label col-sm-4">State</label>-->
+<!--                                  <div class="col-sm-6">-->
+<!--                                      <select class="form-control" th:value="${location.stateid}" name="stateid" id="ddlStateAdd" readonly>-->
+<!--                                          <option th:value="${null}">-SELECT-</option>-->
+<!--                                          <option th:each="state : ${states}"-->
+<!--                                                  th:value="${state.id}"-->
+<!--                                                  th:text="${state.name}"></option>-->
+<!--                                      </select>-->
+<!--                                  </div>-->
+<!--                              </div>-->
                               <div class="form-group">
                                   <label class="control-label col-sm-4">Details</label>
                                   <div class="col-sm-6">
-                                      <input name="details" type="text" class="form-control" id="detailsAdd" readonly>
+                                      <input name="details" type="text" th:value="${location.details}" class="form-control" id="detailsAdd" readonly>
                                   </div>
                               </div>
                           </div>

@@ -5,7 +5,7 @@
       layout:decorate="_layout">
 <head>
     <meta charset="UTF-8">
-    <title>Edit Country</title>
+    <title>Edit Location</title>
 </head>
 <body>
   <div layout:fragment="content">
@@ -13,7 +13,7 @@
 
           <div class="row">
               <div class="col-lg-12">
-                  <h3 class="page-header"><i class="fa fa-laptop"></i>Edit State</h3>
+                  <h3 class="page-header"><i class="fa fa-laptop"></i>Edit Location</h3>
                   <ol class="breadcrumb">
                       <li><i class="fa fa-home"></i><a href="index.html">Parameter Home</a></li>
                   </ol>
@@ -26,37 +26,31 @@
                   <div class="col-lg-12">
                       <section class="panel">
                           <header class="panel-heading">
-                              Edit Current State
+                              Edit Current Location
                           </header>
                           <div class="panel-body">
                               <div class="form-group">
-                                  <label class="control-label col-sm-4">ID</label>
-                                  <div class="col-sm-6">
-                                      <input name="id" type="text" class="form-control" id="idAdd">
-                                  </div>
-                              </div>
-                              <div class="form-group">
                                   <label class="control-label col-sm-4">Description</label>
                                   <div class="col-sm-6">
-                                      <input name="description" class="form-control" type="text" id="descriptionAdd">
+                                      <input name="description" th:value="${location.description}" class="form-control" type="text" id="descriptionAdd">
                                   </div>
                               </div>
                               <div class="form-group">
                                   <label class="control-label col-sm-4">City</label>
                                   <div class="col-sm-6">
-                                      <input name="city" type="text" class=" form-control" id="cityAdd"/>
+                                      <input name="city" type="text" th:value="${location.city}" class=" form-control" id="cityAdd"/>
                                   </div>
                               </div>
                               <div class="form-group">
                                   <label class="control-label col-sm-4">Address</label>
                                   <div class="col-sm-6">
-                                      <input name="address" type="text" class="form-control" id="addressAdd">
+                                      <input name="address" type="text" th:value="${location.address}" class="form-control" id="addressAdd">
                                   </div>
                               </div>
                               <div class="form-group">
                                   <label class="control-label col-sm-4">Country</label>
                                   <div class="col-sm-6">
-                                      <select class="form-control" name="countryid" id="ddlCountryAdd">
+                                      <select class="form-control" th:value="${location.countryid}" name="countryid" id="ddlCountryAdd">
                                           <option>-SELECT-</option>
                                           <option th:each="country : ${countries}"
                                                   th:value="${country.id}"
@@ -67,7 +61,7 @@
                               <div class="form-group">
                                   <label class="control-label col-sm-4">State</label>
                                   <div class="col-sm-6">
-                                      <select class="form-control" name="stateid" id="ddlStateAdd">
+                                      <select class="form-control" name="stateid" id="ddlStateAdd" th:value="${location.stateid}">
                                           <option th:value="${null}">-SELECT-</option>
                                           <option th:each="state : ${states}"
                                                   th:value="${state.id}"
@@ -78,7 +72,7 @@
                               <div class="form-group">
                                   <label class="control-label col-sm-4">Details</label>
                                   <div class="col-sm-6">
-                                      <input name="details" type="text" class="form-control" id="detailsAdd">
+                                      <input name="details" type="text" class="form-control" id="detailsAdd" th:value="${location.details}">
                                   </div>
                               </div>
                           </div>
