@@ -5,7 +5,7 @@
       layout:decorate="_layout">
 <head>
     <meta charset="UTF-8">
-    <title>Add New Location</title>
+    <title>Displaying Supplier Details</title>
 
 </head>
 <body>
@@ -14,7 +14,7 @@
 
           <div class="row">
               <div class="col-lg-12">
-                  <h3 class="page-header"><i class="fa fa-laptop"></i>Add New Location</h3>
+                  <h3 class="page-header"><i class="fa fa-laptop"></i>Displaying Suppliers Details</h3>
                   <ol class="breadcrumb">
                       <li><i class="fa fa-home"></i><a href="index.html">Parameter Home</a></li>
                   </ol>
@@ -27,38 +27,38 @@
                   <div class="col-lg-12">
                       <section class="panel">
                           <header class="panel-heading">
-                              Add New Client
+                              Displaying Supplier Details
                           </header>
                           <div class="panel-body">
                               <div class="col-lg-6">
                                   <div class="form-group">
                                       <label class="control-label col-sm-4">Name</label>
                                       <div class="col-sm-6">
-                                          <input name="name" class="form-control" type="text" id="nameAdd" th:value="${client.name}" readonly>
+                                          <input name="name" class="form-control" type="text" id="nameAdd" th:value="${supplier.name}" readonly>
                                       </div>
                                   </div>
                                   <div class="form-group">
                                       <label class="control-label col-sm-4">Address</label>
                                       <div class="col-sm-6">
-                                          <input name="address" type="text" class=" form-control" id="addressAdd" th:value="${client.address}" readonly/>
+                                          <input name="address" type="text" class=" form-control" id="addressAdd" th:value="${supplier.address}" readonly/>
                                       </div>
                                   </div>
                                   <div class="form-group">
                                       <label class="control-label col-sm-4">City</label>
                                       <div class="col-sm-6">
-                                          <input name="city" type="text" class="form-control" id="cityAdd" th:value="${client.city}" readonly>
+                                          <input name="city" type="text" class="form-control" id="cityAdd" th:value="${supplier.city}" readonly>
                                       </div>
                                   </div>
                                   <div class="form-group">
                                       <label class="control-label col-sm-4">Phone</label>
                                       <div class="col-sm-6">
-                                          <input name="phone" type="text" class=" form-control" id="phoneAdd" th:value="${client.phone}" readonly/>
+                                          <input name="phone" type="text" class=" form-control" id="phoneAdd" th:value="${supplier.phone}" readonly/>
                                       </div>
                                   </div>
                                   <div class="form-group">
                                       <label class="control-label col-sm-4">Email</label>
                                       <div class="col-sm-6">
-                                          <input name="Email" type="text" class="form-control" id="emailAdd" th:value="${client.email}" readonly>
+                                          <input name="Email" type="text" class="form-control" id="emailAdd" th:value="${supplier.email}" readonly>
                                       </div>
                                   </div>
                               </div>
@@ -66,13 +66,13 @@
                                   <div class="form-group">
                                       <label class="control-label col-sm-4">Mobile</label>
                                       <div class="col-sm-6">
-                                          <input name="mobile" type="text" class=" form-control" id="mobileAdd" th:value="${client.mobile}" readonly/>
+                                          <input name="mobile" type="text" class=" form-control" id="mobileAdd" th:value="${supplier.mobile}" readonly/>
                                       </div>
                                   </div>
                                   <div class="form-group">
                                       <label class="control-label col-sm-4">Website</label>
                                       <div class="col-sm-6">
-                                          <input name="website" type="text" class="form-control" id="websiteAdd" th:value="${client.website}" readonly>
+                                          <input name="website" type="text" class="form-control" id="websiteAdd" th:value="${supplier.website}" readonly>
                                       </div>
                                   </div>
 
@@ -101,7 +101,7 @@
                                   <div class="form-group">
                                       <label class="control-label col-sm-4">Details</label>
                                       <div class="col-sm-6">
-                                          <input name="details" type="text" class="form-control" id="detailsAdd" th:value="${client.details}" readonly>
+                                          <input name="details" type="text" class="form-control" id="detailsAdd" th:value="${supplier.details}" readonly>
                                       </div>
                                   </div>
 
@@ -111,8 +111,8 @@
                 <!--  Saving and Exit Buttons-->
                       <section class="panel">
                           <div class="panel-body text-center">
-                              <button type="submit" class="btn btn-success" disabled>Save Client</button>
-                              <a href="/clients" class="btn btn-danger">Exit</a>
+                              <button type="submit" class="btn btn-success" disabled>Save Suppliers</button>
+                              <a href="/suppliers" class="btn btn-danger">Exit</a>
                           </div>
                       </section>
                   </div>
