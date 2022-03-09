@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<!-- The xml:layout attribute enable this page to use the _layout page codes and render that instead-->
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="_layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Add New Supplier</title>
+
+</head>
+<body>
+  <div layout:fragment="content">
+      <div class="container" style="width: 70%">
+
+          <div class="row">
+              <div class="col-lg-12">
+                  <h3 class="page-header"><i class="fa fa-laptop"></i>Add New Supplier</h3>
+                  <ol class="breadcrumb">
+                      <li><i class="fa fa-home"></i><a href="index.html">Parameter Home</a></li>
+                  </ol>
+              </div>
+          </div>
+
+            <!--Add New Country Form-->
+              <div class="row">
+                  <form class="form-horizontal " th:action="@{/suppliers}" method="post">
+                  <div class="col-lg-12">
+                      <section class="panel">
+                          <header class="panel-heading">
+                              Add New Client
+                          </header>
+                          <div class="panel-body">
+                              <div class="col-lg-6">
+                                  <div class="form-group">
+                                      <label class="control-label col-sm-4">Name</label>
+                                      <div class="col-sm-6">
+                                          <input name="name" class="form-control" type="text" id="nameAdd">
+                                      </div>
+                                  </div>
+                                  <div class="form-group">
+                                      <label class="control-label col-sm-4">Address</label>
+                                      <div class="col-sm-6">
+                                          <input name="address" type="text" class=" form-control" id="addressAdd"/>
+                                      </div>
+                                  </div>
+                                  <div class="form-group">
+                                      <label class="control-label col-sm-4">City</label>
+                                      <div class="col-sm-6">
+                                          <input name="city" type="text" class="form-control" id="cityAdd">
+                                      </div>
+                                  </div>
+                                  <div class="form-group">
+                                      <label class="control-label col-sm-4">Phone</label>
+                                      <div class="col-sm-6">
+                                          <input name="phone" type="text" class=" form-control" id="phoneAdd"/>
+                                      </div>
+                                  </div>
+                                  <div class="form-group">
+                                      <label class="control-label col-sm-4">Email</label>
+                                      <div class="col-sm-6">
+                                          <input name="Email" type="text" class="form-control" id="emailAdd">
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-lg-6">
+                                  <div class="form-group">
+                                      <label class="control-label col-sm-4">Mobile</label>
+                                      <div class="col-sm-6">
+                                          <input name="mobile" type="text" class=" form-control" id="mobileAdd"/>
+                                      </div>
+                                  </div>
+                                  <div class="form-group">
+                                      <label class="control-label col-sm-4">Website</label>
+                                      <div class="col-sm-6">
+                                          <input name="website" type="text" class="form-control" id="websiteAdd">
+                                      </div>
+                                  </div>
+
+                                  <div class="form-group">
+                                      <label class="control-label col-sm-4">Country</label>
+                                      <div class="col-sm-6">
+                                          <select class="form-control" name="countryid" id="ddlCountryAdd">
+                                              <option>-SELECT-</option>
+                                              <option th:each="country : ${countries}"
+                                                      th:value="${country.id}"
+                                                      th:text="${country.description}"></option>
+                                          </select>
+                                      </div>
+                                  </div>
+                                  <div class="form-group">
+                                      <label class="control-label col-sm-4">State</label>
+                                      <div class="col-sm-6">
+                                          <select class="form-control" name="stateid" id="ddlStateAdd">
+                                              <option th:value="${null}">-SELECT-</option>
+                                              <option th:each="state : ${states}"
+                                                      th:value="${state.id}"
+                                                      th:text="${state.name}"></option>
+                                          </select>
+                                      </div>
+                                  </div>
+                                  <div class="form-group">
+                                      <label class="control-label col-sm-4">Details</label>
+                                      <div class="col-sm-6">
+                                          <input name="details" type="text" class="form-control" id="detailsAdd">
+                                      </div>
+                                  </div>
+
+                              </div>
+                          </div>
+                      </section>
+                <!--  Saving and Exit Buttons-->
+                      <section class="panel">
+                          <div class="panel-body text-center">
+                              <button type="submit" class="btn btn-success">Save Client</button>
+                              <a href="/suppliers" class="btn btn-danger">Exit</a>
+                          </div>
+                      </section>
+                  </div>
+                  </form>
+              </div>
+          </div>
+          </div>
+  <script th:src="@{/js/locationfilter.js}"></script>
+</body>
+</html>

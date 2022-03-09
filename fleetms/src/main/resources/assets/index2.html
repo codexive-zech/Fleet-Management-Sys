@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<!-- The xml:layout attribute enable this page to use the _layout page codes and render that instead-->
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="_layout">
+<head>
+    <meta charset="UTF-8">
+    <title>derived page</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <h1>This is Content Page</h1>
+</div>
+</body>
+</html>
+

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<!-- The xml:layout attribute enable this page to use the _layout page codes and render that instead-->
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="_layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Add New Contact</title>
+</head>
+<body>
+  <div layout:fragment="content">
+      <div class="container" style="width: 70%">
+
+          <div class="row">
+              <div class="col-lg-12">
+                  <h3 class="page-header"><i class="fa fa-laptop"></i>Add New Contact</h3>
+                  <ol class="breadcrumb">
+                      <li><i class="fa fa-home"></i><a href="index.html">Parameter Home</a></li>
+                  </ol>
+              </div>
+          </div>
+
+            <!--Add New Country Form-->
+              <div class="row">
+                  <form class="form-horizontal " th:action="@{/contacts}" method="post">
+                  <div class="col-lg-12">
+                      <section class="panel">
+                          <header class="panel-heading">
+                              Add New Contact
+                          </header>
+                          <div class="panel-body">
+
+                                  <div class="form-group">
+                                      <label class="control-label col-sm-4">First Name</label>
+                                      <div class="col-sm-6">
+                                          <input name="firstname" type="text" class="form-control">
+                                      </div>
+                                  </div>
+                                  <div class="form-group">
+                                      <label class="control-label col-sm-4">Last Name</label>
+                                      <div class="col-sm-6">
+                                          <input name="lastname" class="form-control" type="text">
+                                      </div>
+                                  </div>
+                                  <div class="form-group">
+                                      <label class="control-label col-sm-4">Phone</label>
+                                      <div class="col-sm-6">
+                                           <input name="phone" type="text" class=" form-control" />
+                                      </div>
+                                  </div>
+                                  <div class="form-group">
+                                      <label class="control-label col-sm-4">Email</label>
+                                      <div class="col-sm-6">
+                                          <input name="email" type="text" class="form-control">
+                                      </div>
+                                  </div>
+                              <div class="form-group">
+                                  <label class="control-label col-sm-4">Mobile</label>
+                                  <div class="col-sm-6">
+                                      <input name="mobile" type="text" class="form-control">
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <label class="control-label col-sm-4">Remarks</label>
+                                  <div class="col-sm-6">
+                                      <input name="remarks" type="text" class="form-control">
+                                  </div>
+                              </div>
+                          </div>
+                      </section>
+                <!--  Saving and Exit Buttons-->
+                      <section class="panel">
+                          <div class="panel-body text-center">
+                              <button type="submit" class="btn btn-success">Save Contact</button>
+                              <a href="/contacts" class="btn btn-danger">Exit</a>
+                          </div>
+                      </section>
+                  </div>
+                  </form>
+              </div>
+          </div>
+          </div>
+</body>
+</html>

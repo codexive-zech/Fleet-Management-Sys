@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="_layout">
+<head>
+    <meta charset="UTF-8">
+    <title>List of Clients</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="row">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <h3 class="page-header"><i class="fa fa-laptop"></i>Parameter Dashboard</h3>
+                <ol class="breadcrumb">
+                    <li><i class="fa fa-home"></i><a href="index.html">Parameter Home</a></li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="col-lg-12">
+            <section class="panel">
+                <div class="panel-body">
+                    <a href="/clientAdd" class="btn btn-primary">Add New Client</a>
+                </div>
+            </section>
+            <section class="panel">
+                <header class="panel-heading">
+                    List of Client
+                </header>
+            <div class="table-responsive">
+                <table class="table table-striped table-advance table-hover">
+                   <thead>
+                    <tr>
+                        <th><i class="icon_profile"></i> Name</th>
+                        <th><i class="icon_calendar"></i> Address</th>
+                        <th><i class="icon_mail_alt"></i> City</th>
+                        <th><i class="icon_mail_alt"></i> Phone</th>
+                        <th><i class="icon_mail_alt"></i> Email</th>
+                        <th><i class="icon_mail_alt"></i> Mobile</th>
+                        <th><i class="icon_mail_alt"></i> Website</th>
+                        <th><i class="icon_mail_alt"></i> Country ID</th>
+                        <th><i class="icon_mail_alt"></i> State ID</th>
+                        <th><i class="icon_mail_alt"></i> Details</th>
+                        <th><i class="icon_cogs"></i> Action</th>
+                    </tr>
+                   </thead>
+                    <tbody>
+                    <tr th:each="client : ${clients}">
+                        <td th:text="${client.name}"></td>
+                        <td th:text="${client.address}"></td>
+                        <td th:text="${client.city}"></td>
+                        <td th:text="${client.phone}"></td>
+                        <td th:text="${client.email}"></td>
+                        <td th:text="${client.mobile}"></td>
+                        <td th:text="${client.website}"></td>
+                        <td th:text="${client.countryid}"></td>
+                        <td th:text="${client.stateid}"></td>
+                        <td th:text="${client.details}"></td>
+                        <td>
+                            <div class="btn-group">
+                                <a class="btn btn-primary" th:href="@{'/clientDetails/' + ${client.id}}"><i class="icon_plus_alt2"></i></a>
+                                <a class="btn btn-success" th:href="@{'/clientEdit/' + ${client.id}}"><i class="icon_check_alt2"></i></a>
+                                <a class="btn btn-danger" th:href="@{'/clients/delete/' + ${client.id}}"><i class="icon_close_alt2"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+            </section>
+        </div>
+    </div>
+</div>
+</body>
+</html>
