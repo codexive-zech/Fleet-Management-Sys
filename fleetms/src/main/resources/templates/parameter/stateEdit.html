@@ -5,7 +5,7 @@
       layout:decorate="_layout">
 <head>
     <meta charset="UTF-8">
-    <title>Edit Country</title>
+    <title>Edit State</title>
 </head>
 <body>
   <div layout:fragment="content">
@@ -48,28 +48,21 @@
                               <div class="form-group">
                                   <label class="control-label col-sm-4">State Name</label>
                                   <div class="col-sm-6">
-                                      <input name="name" th:value="${state.name}"type="text" class="form-control">
+                                      <input name="name" th:value="${state.name}"type="text" class="form-control" required>
                                   </div>
                               </div>
                               <div class="form-group">
                                       <label class="control-label col-sm-4">Capital</label>
                                       <div class="col-sm-6">
-                                          <input name="capital" th:value="${state.capital}" class="form-control" type="text">
+                                          <input name="capital" th:value="${state.capital}" class="form-control" type="text" required>
                                       </div>
                                   </div>
                                   <div class="form-group">
                                       <label class="control-label col-sm-4">Code</label>
                                       <div class="col-sm-6">
-                                           <input name="code" th:value="${state.code}" type="text" class=" form-control" />
+                                           <input name="code" th:value="${state.code}" type="text" class=" form-control" required/>
                                       </div>
                                   </div>
-
-<!--                                  <div class="form-group">-->
-<!--                                      <label class="control-label col-sm-4">Detail</label>-->
-<!--                                      <div class="col-sm-6">-->
-<!--                                          <input name="detail" th:value="${state.details}" type="text" class="form-control">-->
-<!--                                      </div>-->
-<!--                                  </div>-->
                           </div>
                       </section>
                 <!--  Saving and Exit Buttons-->

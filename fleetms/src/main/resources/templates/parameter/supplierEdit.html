@@ -34,31 +34,31 @@
                                   <div class="form-group">
                                       <label class="control-label col-sm-4">Name</label>
                                       <div class="col-sm-6">
-                                          <input name="name" class="form-control" type="text" id="nameAdd" th:value="${supplier.name}">
+                                          <input name="name" class="form-control" type="text" id="nameAdd" th:value="${supplier.name}" required>
                                       </div>
                                   </div>
                                   <div class="form-group">
                                       <label class="control-label col-sm-4">Address</label>
                                       <div class="col-sm-6">
-                                          <input name="address" type="text" class=" form-control" id="addressAdd" th:value="${supplier.address}"/>
+                                          <input name="address" type="text" class=" form-control" id="addressAdd" th:value="${supplier.address}" required/>
                                       </div>
                                   </div>
                                   <div class="form-group">
                                       <label class="control-label col-sm-4">City</label>
                                       <div class="col-sm-6">
-                                          <input name="city" type="text" class="form-control" id="cityAdd" th:value="${supplier.city}">
+                                          <input name="city" type="text" class="form-control" id="cityAdd" th:value="${supplier.city}" required>
                                       </div>
                                   </div>
                                   <div class="form-group">
                                       <label class="control-label col-sm-4">Phone</label>
                                       <div class="col-sm-6">
-                                          <input name="phone" type="text" class=" form-control" id="phoneAdd" th:value="${supplier.phone}"/>
+                                          <input name="phone" type="text" class=" form-control" id="phoneAdd" th:value="${supplier.phone}" required/>
                                       </div>
                                   </div>
                                   <div class="form-group">
                                       <label class="control-label col-sm-4">Email</label>
                                       <div class="col-sm-6">
-                                          <input name="Email" type="text" class="form-control" id="emailAdd" th:value="${supplier.email}">
+                                          <input name="Email" type="text" class="form-control" id="emailAdd" th:value="${supplier.email}" required>
                                       </div>
                                   </div>
                               </div>
@@ -66,21 +66,21 @@
                                   <div class="form-group">
                                       <label class="control-label col-sm-4">Mobile</label>
                                       <div class="col-sm-6">
-                                          <input name="mobile" type="text" class=" form-control" id="mobileAdd" th:value="${supplier.mobile}"/>
+                                          <input name="mobile" type="text" class=" form-control" id="mobileAdd" th:value="${supplier.mobile}" required/>
                                       </div>
                                   </div>
                                   <div class="form-group">
                                       <label class="control-label col-sm-4">Website</label>
                                       <div class="col-sm-6">
-                                          <input name="website" type="text" class="form-control" id="websiteAdd" th:value="${supplier.website}">
+                                          <input name="website" type="text" class="form-control" id="websiteAdd" th:value="${supplier.website}" required>
                                       </div>
                                   </div>
 
                                   <div class="form-group">
                                       <label class="control-label col-sm-4">Country</label>
                                       <div class="col-sm-6">
-                                          <select class="form-control" name="countryid" id="ddlCountryAdd">
-                                              <option>-SELECT-</option>
+                                          <select class="form-control" name="countryid" id="ddlCountryAdd" required>
+                                              <option th:value="${null}">-SELECT-</option>
                                               <option th:each="country : ${countries}"
                                                       th:value="${country.id}"
                                                       th:text="${country.description}"></option>
@@ -90,7 +90,7 @@
                                   <div class="form-group">
                                       <label class="control-label col-sm-4">State</label>
                                       <div class="col-sm-6">
-                                          <select class="form-control" name="stateid" id="ddlStateAdd">
+                                          <select class="form-control" name="stateid" id="ddlStateAdd" required>
                                               <option th:value="${null}">-SELECT-</option>
                                               <option th:each="state : ${states}"
                                                       th:value="${state.id}"
@@ -101,10 +101,9 @@
                                   <div class="form-group">
                                       <label class="control-label col-sm-4">Details</label>
                                       <div class="col-sm-6">
-                                          <input name="details" type="text" class="form-control" id="detailsAdd" th:value="${supplier.details}">
+                                          <input name="details" type="text" class="form-control" id="detailsAdd" th:value="${supplier.details}" required>
                                       </div>
                                   </div>
-
                               </div>
                           </div>
                       </section>
