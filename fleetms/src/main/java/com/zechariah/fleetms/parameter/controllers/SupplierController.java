@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class SupplierController {
@@ -41,14 +42,16 @@ public class SupplierController {
     }
 
     @PostMapping("/suppliers")
-    public String saveSupplier(Supplier supplier){
+    public String saveSupplier(Supplier supplier, RedirectAttributes redirectAttributes){
         supplierService.saveSupplier(supplier);
+        redirectAttributes.addFlashAttribute("message" ,"Supplier Has Been Added Successfully");
         return "redirect:/suppliers";
     }
 
     @RequestMapping(value = "/suppliers/delete/{id}", method = {RequestMethod.GET, RequestMethod.DELETE})
-    public String deleteSupplier(@PathVariable Integer id){
+    public String deleteSupplier(@PathVariable Integer id, RedirectAttributes redirectAttributes){
         supplierService.deleteSupplier(id);
+        redirectAttributes.addFlashAttribute("message", "Supplier Has Been Deleted Successfully");
         return "redirect:/suppliers";
     }
 
@@ -61,8 +64,9 @@ public class SupplierController {
     }
 
     @RequestMapping(value = "/supplier/update/{id}", method = {RequestMethod.GET, RequestMethod.PUT})
-    public String editSupplier(Supplier supplier){
+    public String editSupplier(Supplier supplier, RedirectAttributes redirectAttributes){
         supplierService.saveSupplier(supplier);
+        redirectAttributes.addFlashAttribute("message", "Supplier has Been Deleted Successfully");
         return "redirect:/suppliers";
     }
 

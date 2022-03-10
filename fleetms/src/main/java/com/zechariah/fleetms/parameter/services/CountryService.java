@@ -25,7 +25,7 @@ public class CountryService {
         countryRepository.deleteById(id);
     }
 
-    public Country editCountry(Integer id){
+    public Country editCountry(Integer id) {
         return countryRepository.findById(id).orElse(null);
     }
 }

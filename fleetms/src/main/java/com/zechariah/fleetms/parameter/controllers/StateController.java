@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -41,14 +42,16 @@ public class StateController {
     }
 
     @PostMapping("/states")
-    public String addState(State state){
+    public String addState(State state, RedirectAttributes redirectAttributes){
         stateService.saveState(state);
+        redirectAttributes.addFlashAttribute("message", "State Has Been Added Successfully");
         return "redirect:/states";
     }
 
     @RequestMapping(value = "/states/delete/{id}", method = {RequestMethod.GET, RequestMethod.DELETE})
-    public String deleteState(@PathVariable Integer id){
+    public String deleteState(@PathVariable Integer id, RedirectAttributes redirectAttributes){
         stateService.deleteState(id);
+        redirectAttributes.addFlashAttribute("message", "State Has Been Deleted Successfully");
         return "redirect:/states";
     }
 
@@ -60,8 +63,9 @@ public class StateController {
     }
 
     @RequestMapping(value = "/state/update/{id}", method = {RequestMethod.GET, RequestMethod.PUT})
-    public String editState(State state){
+    public String editState(State state, RedirectAttributes redirectAttributes){
         stateService.saveState(state);
+        redirectAttributes.addFlashAttribute("message", "State Has Been Updated Successfully");
         return "redirect:/states";
     }
 

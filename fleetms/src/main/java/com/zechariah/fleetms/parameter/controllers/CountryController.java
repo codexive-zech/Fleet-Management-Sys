@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -40,14 +41,16 @@ public class CountryController {
     }
 
     @PostMapping("/countries")
-    public String saveCountry(Country country){
+    public String saveCountry(Country country, RedirectAttributes redirectAttributes){
         countryService.saveCountry(country);
+        redirectAttributes.addFlashAttribute("message", "This Country has been saved Successfully.");
         return "redirect:/countries";
     }
 
     @RequestMapping(value ="/countries/delete/{id}", method = {RequestMethod.GET, RequestMethod.DELETE})
-    public String deleteCountry(@PathVariable Integer id){
+    public String deleteCountry(@PathVariable Integer id, RedirectAttributes redirectAttributes){
         countryService.deleteCountry(id);
+        redirectAttributes.addFlashAttribute("message", "Country has been Deleted Successfully.");
         return "redirect:/countries";
     }
 
@@ -59,8 +62,9 @@ public class CountryController {
     }
 
     @RequestMapping(value = "/countries/update/{id}", method = {RequestMethod.GET, RequestMethod.PUT})
-    public String editCountry(Country country){
+    public String editCountry(Country country, RedirectAttributes redirectAttributes){
         countryService.saveCountry(country);
+        redirectAttributes.addFlashAttribute("message", "Country Has Been Updated Successfully.");
         return "redirect:/countries";
     }
 

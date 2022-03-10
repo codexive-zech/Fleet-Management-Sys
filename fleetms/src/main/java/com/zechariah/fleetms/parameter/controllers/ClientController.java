@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class ClientController {
@@ -41,14 +42,16 @@ public class ClientController {
     }
 
     @PostMapping("/clients")
-    public String saveClient(Client client){
+    public String saveClient(Client client, RedirectAttributes redirectAttributes){
         clientService.saveClient(client);
+        redirectAttributes.addFlashAttribute("message", "Client Has Been Added Successfully");
         return "redirect:/clients";
     }
 
     @RequestMapping(value = "/clients/delete/{id}", method = {RequestMethod.GET, RequestMethod.DELETE})
-    public String deleteClient(@PathVariable Integer id){
+    public String deleteClient(@PathVariable Integer id, RedirectAttributes redirectAttributes){
         clientService.deleteClient(id);
+        redirectAttributes.addFlashAttribute("message", "Client Has Benn Deleted Successfully.");
         return "redirect:/clients";
     }
 
@@ -61,8 +64,9 @@ public class ClientController {
     }
 
     @RequestMapping(value = "/client/update/{id}", method = {RequestMethod.GET, RequestMethod.PUT})
-    public String editClient(Client client){
+    public String editClient(Client client, RedirectAttributes redirectAttributes){
         clientService.saveClient(client);
+        redirectAttributes.addFlashAttribute("message", "Client Has Been Updated successfully.");
         return "redirect:/clients";
     }
 

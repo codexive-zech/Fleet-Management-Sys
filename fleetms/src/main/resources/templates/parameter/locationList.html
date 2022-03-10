@@ -9,16 +9,7 @@
 <body>
 <div layout:fragment="content">
     <div class="row">
-
-        <div class="row">
-            <div class="col-lg-12">
-                <h3 class="page-header"><i class="fa fa-laptop"></i>Parameter Dashboard</h3>
-                <ol class="breadcrumb">
-                    <li><i class="fa fa-home"></i><a href="index.html">Parameter Home</a></li>
-                </ol>
-            </div>
-        </div>
-
+        <div th:if="${message != null}" class="alert alert-success text-center h4" th:text="${message}"></div>
         <div class="col-lg-12">
             <section class="panel">
                 <div class="panel-body">

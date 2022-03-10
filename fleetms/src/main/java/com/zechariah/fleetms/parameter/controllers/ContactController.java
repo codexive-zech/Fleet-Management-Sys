@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -28,14 +29,16 @@ public class ContactController {
     }
 
     @PostMapping("/contacts")
-    public String addNewContact(Contact contact){
+    public String addNewContact(Contact contact, RedirectAttributes redirectAttributes){
         contactService.saveContact(contact);
+        redirectAttributes.addFlashAttribute("message", "Contact Has Been Added Successfully");
         return "redirect:/contacts";
     }
 
     @RequestMapping(value = "/contacts/delete/{id}", method = { RequestMethod.GET, RequestMethod.DELETE})
-    public String deleteContact(@PathVariable Integer id){
+    public String deleteContact(@PathVariable Integer id, RedirectAttributes redirectAttributes){
         contactService.deleteContact(id);
+        redirectAttributes.addFlashAttribute("message", "Contact Has Been Deleted Successfully");
         return "redirect:/contacts";
     }
 
@@ -47,8 +50,9 @@ public class ContactController {
     }
 
     @RequestMapping(value = "/contacts/update/{id}", method = {RequestMethod.GET, RequestMethod.PUT})
-    public String editContact(Contact contact){
+    public String editContact(Contact contact, RedirectAttributes redirectAttributes){
         contactService.saveContact(contact);
+        redirectAttributes.addFlashAttribute("message", "Contact Has Been Updated Successfully");
         return "redirect:/contacts";
     }
 

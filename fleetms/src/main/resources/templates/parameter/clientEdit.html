@@ -79,7 +79,7 @@
                                   <div class="form-group">
                                       <label class="control-label col-sm-4">Country</label>
                                       <div class="col-sm-6">
-                                          <select class="form-control" name="countryid" id="ddlCountryAdd" required>
+                                          <select class="form-control" name="countryid" id="ddlCountryAdd" >
                                               <option>-SELECT-</option>
                                               <option th:each="country : ${countries}"
                                                       th:value="${country.id}"
@@ -90,7 +90,7 @@
                                   <div class="form-group">
                                       <label class="control-label col-sm-4">State</label>
                                       <div class="col-sm-6">
-                                          <select class="form-control" name="stateid" id="ddlStateAdd" required>
+                                          <select class="form-control" name="stateid" id="ddlStateAdd">
                                               <option th:value="${null}">-SELECT-</option>
                                               <option th:each="state : ${states}"
                                                       th:value="${state.id}"

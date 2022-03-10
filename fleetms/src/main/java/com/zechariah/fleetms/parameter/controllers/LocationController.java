@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class LocationController {
@@ -44,15 +45,17 @@ public class LocationController {
     }
 
     @PostMapping("/locations")
-    public String addLocation(Location location){
+    public String addLocation(Location location, RedirectAttributes redirectAttributes){
         locationService.saveLocation(location);
+        redirectAttributes.addFlashAttribute("message", "Location Has Been Added Successfully");
         return "redirect:/locations";
     }
 
-    @RequestMapping(value = "/location/delete/{id}", method = {RequestMethod.GET, RequestMethod.DELETE})
-    public String deleteState(@PathVariable Integer id){
+    @RequestMapping(value = "/locations/delete/{id}", method = {RequestMethod.GET, RequestMethod.DELETE})
+    public String deleteState(@PathVariable Integer id, RedirectAttributes redirectAttributes){
         locationService.deleteLocation(id);
-        return "redirect:/location";
+        redirectAttributes.addFlashAttribute("message", "Location Has Been Deleted Successfully");
+        return "redirect:/locations";
     }
 
     @GetMapping("locationEdit/{id}")
@@ -63,8 +66,9 @@ public class LocationController {
     }
 
     @RequestMapping(value = "/location/update/{id}", method = {RequestMethod.GET, RequestMethod.PUT})
-    public String editState(Location location){
+    public String editState(Location location, RedirectAttributes redirectAttributes){
         locationService.saveLocation(location);
+        redirectAttributes.addFlashAttribute("message", "Location Has Been Updated Successfully");
         return "redirect:/locations";
     }
 
