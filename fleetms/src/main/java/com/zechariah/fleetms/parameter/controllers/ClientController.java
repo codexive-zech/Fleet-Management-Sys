@@ -10,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
+
 @Controller
 public class ClientController {
 
@@ -30,8 +32,20 @@ public class ClientController {
     }
 
     @GetMapping("/clients")
-    public String getClient(Model model){
+    public String getClient(Model model, String keyword){
+        //        Declaring Client List
+        List<Client> clients;
+
+        //    Checking to see if Keyword is null or not.
+        if (keyword == null){
+            clients = clientService.getClients();
+        } else {
+           clients = clientService.findByKeyword(keyword);
+        }
+
+        //      Displaying Client List in the web Page
         getModels(model);
+        model.addAttribute("clients", clients);
         return "/parameter/clientList";
     }
 

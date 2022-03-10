@@ -30,4 +30,9 @@ public class LocationService {
     public Location editLocation(Integer id){
         return locationRepository.findById(id).orElse(null);
     }
+
+    //    Search Filter Location Table
+    public List<Location> findByKeyword(String keyword){
+        return locationRepository.findByKeyword(keyword);
+    }
 }

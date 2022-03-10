@@ -1,6 +1,7 @@
 package com.zechariah.fleetms.parameter.controllers;
 
 
+import com.zechariah.fleetms.parameter.models.Client;
 import com.zechariah.fleetms.parameter.models.Country;
 import com.zechariah.fleetms.parameter.models.State;
 import com.zechariah.fleetms.parameter.services.CountryService;
@@ -30,11 +31,21 @@ public class StateController {
 
 
     @GetMapping("/states")
-    public String viewStates(Model model){
+    public String viewStates(Model model, String keyword){
+        //    Declaring State List
+        List<State> states;
+        //    Checking to see if Keyword is null or not.
+        if (keyword == null){
+            states = stateService.getStates();
+        } else {
+           states = stateService.findByKeyword(keyword);
+        }
+        //    Displaying State List in the web Page
         getModel(model);
+        model.addAttribute("states", states);
         return "/parameter/stateList";
     }
-
+    
     @GetMapping("/stateAdd")
     public String getNewState(Model model){
         getModel(model);

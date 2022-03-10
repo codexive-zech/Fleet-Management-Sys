@@ -20,8 +20,18 @@ public class CountryController {
 // Display All Country
 
     @GetMapping("/countries")
-    public String getAllCountry(Model model){
-      List<Country> countries = countryService.getAllCountry();
+    public String getAllCountry(Model model, String keyword){
+//        Declaring Country List
+      List<Country> countries;
+
+//    Checking to see if Keyword is null or not.
+      if (keyword == null){
+         countries = countryService.getAllCountry();
+      } else {
+          countries = countryService.findByKeyword(keyword);
+      }
+
+//      Displaying Country List in the web Page
       model.addAttribute("countries", countries);
         return "parameter/countryList";
     }

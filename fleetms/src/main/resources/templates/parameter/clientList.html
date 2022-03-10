@@ -14,7 +14,21 @@
             <div th:if="${message != null}" class="alert alert-success text-center h4" th:text="${message}"></div>
             <section class="panel">
                 <div class="panel-body">
-                    <a href="/clientAdd" class="btn btn-primary">Add New Client</a>
+                    <!--   Search Filter Table Data    -->
+                    <form th:action="@{/clients}">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <a href="/clientAdd" class="btn btn-primary">Add New Client</a>
+                        </div>
+                        <div class="col-lg-3">
+                            <input type="text" name="keyword" class="form-control">
+                        </div>
+                        <div class="col-lg-3">
+                            <input type="submit" value="search" class="btn-success form-control">
+                        </div>
+                    </div>
+                    </form>
+                    <!--   End Search Filter Table Data    -->
                 </div>
             </section>
             <section class="panel">

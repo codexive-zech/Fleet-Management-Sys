@@ -28,4 +28,9 @@ public class ContactService {
     public Contact editContact(Integer id){
         return contactRepository.findById(id).orElse(null);
     }
+
+    //    Search Filter Contact Table
+    public List<Contact> findByKeyword(String keyword){
+        return contactRepository.findByKeyword(keyword);
+    }
 }

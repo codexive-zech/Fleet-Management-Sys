@@ -28,4 +28,9 @@ public class ClientService {
     public Client editClient(Integer id){
         return clientRepository.findById(id).orElse(null);
     }
+
+    //    Search Filter Client Table
+    public List<Client> findByKeyword(String keyword){
+        return clientRepository.findByKeyword(keyword);
+    }
 }

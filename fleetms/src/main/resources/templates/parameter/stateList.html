@@ -13,7 +13,21 @@
         <div class="col-lg-12">
             <section class="panel">
                 <div class="panel-body">
-                    <a href="/stateAdd" class="btn btn-primary">Add New State</a>
+                    <!--    Search Filter Table Data    -->
+                    <form th:action="@{/states}">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <a href="/stateAdd" class="btn btn-primary">Add New State</a>
+                        </div>
+                        <div class="col-lg-3">
+                            <input type="text" class="form-control" name="keyword">
+                        </div>
+                        <div class="col-lg-3">
+                            <input type="submit" value="search" class="btn-success form-control">
+                        </div>
+                    </div>
+                    </form>
+                    <!--   End Search Filter Table Data    -->
                 </div>
             </section>
             <section class="panel">
@@ -28,7 +42,7 @@
                         <th><i class="icon_calendar"></i> State Name</th>
                         <th><i class="icon_mail_alt"></i> capital</th>
                         <th><i class="icon_pin_alt"></i> Code</th>
-                        <th><i class="icon_mobile"></i> Detail</th>
+<!--                        <th><i class="icon_mobile"></i> Detail</th>-->
                         <th><i class="icon_cogs"></i> Action</th>
                     </tr>
                    </thead>
@@ -38,7 +52,7 @@
                         <td th:text="${state.name}"></td>
                         <td th:text="${state.capital}"></td>
                         <td th:text="${state.code}"></td>
-                        <td th:text="${state.details}"></td>
+<!--                        <td th:text="${state.details}"></td>-->
 
                         <td>
                             <div class="btn-group">

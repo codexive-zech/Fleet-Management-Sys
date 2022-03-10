@@ -28,4 +28,9 @@ public class CountryService {
     public Country editCountry(Integer id) {
         return countryRepository.findById(id).orElse(null);
     }
+
+    //    Search Filter Country Table
+    public List<Country> findByKeyword(String keyword){
+        return countryRepository.findByKeyword(keyword);
+    }
 }

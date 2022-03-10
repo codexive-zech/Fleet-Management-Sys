@@ -13,7 +13,21 @@
         <div class="col-lg-12">
             <section class="panel">
                 <div class="panel-body">
-                    <a href="/supplierAdd" class="btn btn-primary">Add New Suppliers</a>
+                    <!--   Search Filter Table Data    -->
+                    <form th:action="@{/suppliers}">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <a href="/supplierAdd" class="btn btn-primary">Add New Suppliers</a>
+                            </div>
+                            <div class="col-lg-3">
+                                <input class="form-control" name="keyword" type="text"></input>
+                            </div>
+                            <div class="col-lg-3">
+                                <input type="submit" value="search" class="btn-success form-control">
+                            </div>
+                        </div>
+                    </form>
+                    <!--   End Search Filter Table Data    -->
                 </div>
             </section>
             <section class="panel">

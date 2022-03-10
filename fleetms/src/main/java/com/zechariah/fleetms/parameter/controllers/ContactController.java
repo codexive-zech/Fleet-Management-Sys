@@ -17,8 +17,18 @@ public class ContactController {
     private ContactService contactService;
 
     @GetMapping("contacts")
-    public String getContacts(Model model){
-        List<Contact> contacts = contactService.getContacts();
+    public String getContacts(Model model, String keyword){
+        //        Declaring Contact List
+        List<Contact> contacts;
+
+        //    Checking to see if Keyword is null or not.
+        if (keyword == null){
+            contacts = contactService.getContacts();
+        } else {
+            contacts = contactService.findByKeyword(keyword);
+        }
+
+        //      Displaying Contact List in the web Page
         model.addAttribute("contacts", contacts);
         return "/parameter/contactList";
     }

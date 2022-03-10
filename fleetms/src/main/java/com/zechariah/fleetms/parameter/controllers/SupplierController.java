@@ -10,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
+
 @Controller
 public class SupplierController {
 
@@ -30,8 +32,18 @@ public class SupplierController {
     }
 
     @GetMapping("/suppliers")
-    public String getSuppliers(Model model){
+    public String getSuppliers(Model model, String keyword){
+        //        Declaring Supplier List
+        List<Supplier> suppliers;
+        //    Checking to see if Keyword is null or not.
+        if (keyword == null){
+            suppliers = supplierService.getAllSuppliers();
+        } else {
+            suppliers = supplierService.findByKeyword(keyword);
+        }
+        //      Displaying Supplier List in the web Page
         getModel(model);
+        model.addAttribute("suppliers", suppliers);
         return "/parameter/supplierList";
     }
 

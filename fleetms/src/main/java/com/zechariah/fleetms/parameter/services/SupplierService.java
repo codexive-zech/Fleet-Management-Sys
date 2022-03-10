@@ -28,4 +28,9 @@ public class SupplierService {
     public Supplier editSupplier(Integer id){
         return supplierRepository.findById(id).orElse(null);
     }
+
+    //    Search Filter Supplier Table
+    public List<Supplier> findByKeyword(String keyword){
+        return supplierRepository.findByKeyword(keyword);
+    }
 }

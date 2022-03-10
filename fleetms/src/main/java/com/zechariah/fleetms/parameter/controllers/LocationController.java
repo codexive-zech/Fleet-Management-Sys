@@ -12,6 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
+
 @Controller
 public class LocationController {
 
@@ -33,8 +35,18 @@ public class LocationController {
 
 
     @GetMapping("/locations")
-    public String viewLocation(Model model){
+    public String viewLocation(Model model, String keyword){
+        //        Declaring Location List
+        List<Location> locations;
+        //    Checking to see if Keyword is null or not.
+        if (keyword == null){
+            locations = locationService.getLocations();
+        } else {
+            locations = locationService.findByKeyword(keyword);
+        }
+        //      Displaying Location List in the web Page
         getModel(model);
+        model.addAttribute("locations", locations);
         return "/parameter/locationList";
     }
 
