@@ -3,6 +3,7 @@ package com.zechariah.fleetms.parameter.services;
 import com.zechariah.fleetms.parameter.models.Country;
 import com.zechariah.fleetms.parameter.repositories.CountryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,15 +14,15 @@ public class CountryService {
     @Autowired
     private CountryRepository countryRepository;
 
-    public List<Country> getAllCountry(){
+    public List<Country> getAllCountry() {
         return countryRepository.findAll();
     }
 
-    public void saveCountry(Country country){
+    public void saveCountry(Country country) {
         countryRepository.save(country);
     }
 
-    public void deleteCountry(Integer id){
+    public void deleteCountry(Integer id) {
         countryRepository.deleteById(id);
     }
 
@@ -30,7 +31,14 @@ public class CountryService {
     }
 
     //    Search Filter Country Table
-    public List<Country> findByKeyword(String keyword){
+    public List<Country> findByKeyword(String keyword) {
         return countryRepository.findByKeyword(keyword);
     }
+
+//        Sort the Country Table
+    public List<Country> getAllCountryWithSort(String field){
+        return countryRepository.findAll(Sort.by(field));
+    }
 }
+
+

@@ -16,6 +16,7 @@ public class ContactController {
     @Autowired
     private ContactService contactService;
 
+    //    Displaying the List of Contact in the webpage
     @GetMapping("contacts")
     public String getContacts(Model model, String keyword){
         //        Declaring Contact List
@@ -33,11 +34,27 @@ public class ContactController {
         return "/parameter/contactList";
     }
 
+    //    Displaying Contact Sorting into the webpage
+    @GetMapping("contacts/{field}")
+    public String getContactsWithSort(Model model, @PathVariable String field){
+        //       Declaring Contact List
+        List<Contact> contacts;
+
+        //    Sorting the Contact Table via Field
+        contacts = contactService.getContactsWithSort(field);
+
+        //      Displaying Contact List in the web Page
+        model.addAttribute("contacts", contacts);
+        return "/parameter/contactList";
+    }
+
+    //    Displaying the Webpage of Add Form for Contact
     @GetMapping("/contactAdd")
     public String displayAddContact(){
         return "/parameter/contactAdd";
     }
 
+    //    Saving the Information in the Form to the Database and Displaying the List back
     @PostMapping("/contacts")
     public String addNewContact(Contact contact, RedirectAttributes redirectAttributes){
         contactService.saveContact(contact);
@@ -45,6 +62,7 @@ public class ContactController {
         return "redirect:/contacts";
     }
 
+    //    Deleting and Displaying a Contact in the webpage
     @RequestMapping(value = "/contacts/delete/{id}", method = { RequestMethod.GET, RequestMethod.DELETE})
     public String deleteContact(@PathVariable Integer id, RedirectAttributes redirectAttributes){
         contactService.deleteContact(id);
@@ -52,6 +70,7 @@ public class ContactController {
         return "redirect:/contacts";
     }
 
+    //    Display a particular Contact to edit
     @GetMapping("/contactEdit/{id}")
     public String editContact(@PathVariable Integer id, Model model){
         Contact contacts = contactService.editContact(id);
@@ -59,6 +78,7 @@ public class ContactController {
         return "/parameter/contactEdit";
     }
 
+    //    Saving a particular Contact after edit and Displaying to the webpage
     @RequestMapping(value = "/contacts/update/{id}", method = {RequestMethod.GET, RequestMethod.PUT})
     public String editContact(Contact contact, RedirectAttributes redirectAttributes){
         contactService.saveContact(contact);
@@ -66,6 +86,7 @@ public class ContactController {
         return "redirect:/contacts";
     }
 
+    //    Displaying Contact Details on the webpage
     @GetMapping("/contactDetails/{id}")
     public String displayContact(@PathVariable Integer id, Model model){
         Contact contact = contactService.editContact(id);

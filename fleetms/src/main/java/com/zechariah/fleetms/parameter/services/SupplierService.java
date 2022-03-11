@@ -3,6 +3,7 @@ package com.zechariah.fleetms.parameter.services;
 import com.zechariah.fleetms.parameter.models.Supplier;
 import com.zechariah.fleetms.parameter.repositories.SupplierRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,5 +33,10 @@ public class SupplierService {
     //    Search Filter Supplier Table
     public List<Supplier> findByKeyword(String keyword){
         return supplierRepository.findByKeyword(keyword);
+    }
+
+    //        Sort the Supplier Table
+    public List<Supplier> getAllSuppliersWithSort(String field){
+        return supplierRepository.findAll(Sort.by(field));
     }
 }

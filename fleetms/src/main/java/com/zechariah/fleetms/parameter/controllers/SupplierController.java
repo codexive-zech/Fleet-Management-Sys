@@ -24,6 +24,7 @@ public class SupplierController {
     @Autowired
     private CountryService countryService;
 
+//    Getting all The Details meant to be rendered on the webpage
     public Model getModel(Model model){
         model.addAttribute("countries", countryService.getAllCountry());
         model.addAttribute("states", stateService.getStates());
@@ -31,6 +32,7 @@ public class SupplierController {
         return model;
     }
 
+//    Displaying the List of Supplier in the webpage
     @GetMapping("/suppliers")
     public String getSuppliers(Model model, String keyword){
         //        Declaring Supplier List
@@ -47,12 +49,27 @@ public class SupplierController {
         return "/parameter/supplierList";
     }
 
+//    Displaying Supplier Sorting into the webpage
+    @GetMapping("/suppliers/{field}")
+    public String getSuppliersWithSort(Model model, @PathVariable String field){
+        //        Declaring Supplier List
+        List<Supplier> suppliers;
+        //    Sorting the Supplier Table via Field
+        suppliers = supplierService.getAllSuppliersWithSort(field);
+        //      Displaying Supplier List in the web Page
+        getModel(model);
+        model.addAttribute("suppliers", suppliers);
+        return "/parameter/supplierList";
+    }
+
+//    Displaying the Webpage of Add Form for Supplier
     @GetMapping("supplierAdd")
     public String getAddSupplier(Model model){
         model.addAttribute("countries", countryService.getAllCountry());
         return "/parameter/supplierAdd";
     }
 
+//    Saving the Information in the Form to the Database and Displaying the List back
     @PostMapping("/suppliers")
     public String saveSupplier(Supplier supplier, RedirectAttributes redirectAttributes){
         supplierService.saveSupplier(supplier);
@@ -60,6 +77,7 @@ public class SupplierController {
         return "redirect:/suppliers";
     }
 
+//    Deleting and Displaying a Supplier in the webpage
     @RequestMapping(value = "/suppliers/delete/{id}", method = {RequestMethod.GET, RequestMethod.DELETE})
     public String deleteSupplier(@PathVariable Integer id, RedirectAttributes redirectAttributes){
         supplierService.deleteSupplier(id);
@@ -67,6 +85,7 @@ public class SupplierController {
         return "redirect:/suppliers";
     }
 
+//    Display a particular supplier to edit
     @GetMapping("/supplierEdit/{id}")
     public String getEditSupplier(@PathVariable Integer id, Model model){
         getModel(model);
@@ -75,6 +94,7 @@ public class SupplierController {
         return "/parameter/supplierEdit";
     }
 
+//    Saving a particular Supplier after edit and Displaying to the webpage
     @RequestMapping(value = "/supplier/update/{id}", method = {RequestMethod.GET, RequestMethod.PUT})
     public String editSupplier(Supplier supplier, RedirectAttributes redirectAttributes){
         supplierService.saveSupplier(supplier);
@@ -82,6 +102,7 @@ public class SupplierController {
         return "redirect:/suppliers";
     }
 
+//    Displaying Suppliers Details on the webpage
     @GetMapping("/supplierDetails/{id}")
     public String displayingSuppliers(@PathVariable Integer id, Model model){
         Supplier supplier = supplierService.editSupplier(id);

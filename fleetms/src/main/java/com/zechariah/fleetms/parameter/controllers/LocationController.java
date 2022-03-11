@@ -26,6 +26,7 @@ public class LocationController {
     @Autowired
     private LocationService locationService;
 
+    //    Getting all The Details meant to be rendered on the webpage
     public Model getModel(Model model){
         model.addAttribute("states", stateService.getStates());
         model.addAttribute("countries", countryService.getAllCountry());
@@ -33,7 +34,7 @@ public class LocationController {
         return model;
     }
 
-
+    //    Displaying the List of Location in the webpage
     @GetMapping("/locations")
     public String viewLocation(Model model, String keyword){
         //        Declaring Location List
@@ -50,12 +51,27 @@ public class LocationController {
         return "/parameter/locationList";
     }
 
+    //    Displaying Location Sorting into the webpage
+    @GetMapping("/locations/{field}")
+    public String viewLocationWithSort(Model model,@PathVariable String field){
+        //        Declaring Location List
+        List<Location> locations;
+   //    Sorting the Location Table via Field
+        locations = locationService.getLocationsWithSort(field);
+        //      Displaying Location List in the web Page
+        getModel(model);
+        model.addAttribute("locations", locations);
+        return "/parameter/locationList";
+    }
+
+    //    Displaying the Webpage of Add Form for Location
     @GetMapping("/locationAdd")
     public String getNewLocation(Model model){
         model.addAttribute("countries", countryService.getAllCountry());
         return "/parameter/locationAdd";
     }
 
+    //    Saving the Information in the Form to the Database and Displaying the List back
     @PostMapping("/locations")
     public String addLocation(Location location, RedirectAttributes redirectAttributes){
         locationService.saveLocation(location);
@@ -63,6 +79,7 @@ public class LocationController {
         return "redirect:/locations";
     }
 
+    //    Deleting and Displaying a Location in the webpage
     @RequestMapping(value = "/locations/delete/{id}", method = {RequestMethod.GET, RequestMethod.DELETE})
     public String deleteState(@PathVariable Integer id, RedirectAttributes redirectAttributes){
         locationService.deleteLocation(id);
@@ -70,6 +87,7 @@ public class LocationController {
         return "redirect:/locations";
     }
 
+    //    Display a particular Location to edit
     @GetMapping("locationEdit/{id}")
     public String getEditState(@PathVariable Integer id, Model model){
         getModel(model);
@@ -77,6 +95,7 @@ public class LocationController {
         return "parameter/locationEdit";
     }
 
+    //    Saving a particular Location after edit and Displaying to the webpage
     @RequestMapping(value = "/location/update/{id}", method = {RequestMethod.GET, RequestMethod.PUT})
     public String editState(Location location, RedirectAttributes redirectAttributes){
         locationService.saveLocation(location);
@@ -84,7 +103,7 @@ public class LocationController {
         return "redirect:/locations";
     }
 
-//    Display State
+//    Displaying Location Details on the webpage
     @GetMapping("/locationDetails/{id}")
     public String getStateDetails(@PathVariable Integer id, Model model){
         Location location = locationService.editLocation(id);

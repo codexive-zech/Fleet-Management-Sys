@@ -5,6 +5,7 @@ import com.zechariah.fleetms.parameter.models.State;
 import com.zechariah.fleetms.parameter.repositories.LocationRepository;
 import com.zechariah.fleetms.parameter.repositories.StateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,5 +35,10 @@ public class LocationService {
     //    Search Filter Location Table
     public List<Location> findByKeyword(String keyword){
         return locationRepository.findByKeyword(keyword);
+    }
+
+    //        Sort the Location Table
+    public List<Location> getLocationsWithSort(String field){
+        return locationRepository.findAll(Sort.by(field));
     }
 }

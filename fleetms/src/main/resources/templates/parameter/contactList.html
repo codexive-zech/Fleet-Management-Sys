@@ -39,9 +39,10 @@
                 <table class="table table-striped table-advance table-hover">
                    <thead>
                     <tr>
-                        <th><i class="icon_profile"></i> Country ID</th>
-                        <th><i class="icon_calendar"></i> First Name</th>
-                        <th><i class="icon_mail_alt"></i> Last Name</th>
+                        <!--               Adding the Endpoint for Data Sorting         -->
+                        <th><i class="icon_profile"></i> <a th:href="@{/contacts/id}">ID</a></th>
+                        <th><i class="icon_calendar"></i> <a th:href="@{/contacts/firstname}">First Name</a></th>
+                        <th><i class="icon_mail_alt"></i> <a th:href="@{/contacts/lastname}">Last Name</a></th>
                         <th><i class="icon_pin_alt"></i> Phone Number</th>
                         <th><i class="icon_mobile"></i> Email</th>
                         <th><i class="icon_mobile"></i> Mobile</th>

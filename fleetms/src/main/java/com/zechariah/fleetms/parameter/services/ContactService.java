@@ -3,6 +3,7 @@ package com.zechariah.fleetms.parameter.services;
 import com.zechariah.fleetms.parameter.models.Contact;
 import com.zechariah.fleetms.parameter.repositories.ContactRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,5 +33,10 @@ public class ContactService {
     //    Search Filter Contact Table
     public List<Contact> findByKeyword(String keyword){
         return contactRepository.findByKeyword(keyword);
+    }
+
+    //        Sort the Contact Table
+    public List<Contact> getContactsWithSort(String field){
+        return contactRepository.findAll(Sort.by(field));
     }
 }

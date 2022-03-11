@@ -24,6 +24,7 @@ public class ClientController {
     @Autowired
     private CountryService countryService;
 
+    //    Getting all The Details meant to be rendered on the webpage
     public Model getModels(Model model){
         model.addAttribute("clients", clientService.getClients());
         model.addAttribute("states", stateService.getStates());
@@ -31,6 +32,7 @@ public class ClientController {
         return model;
     }
 
+    //    Displaying the List of Client in the webpage
     @GetMapping("/clients")
     public String getClient(Model model, String keyword){
         //        Declaring Client List
@@ -49,12 +51,29 @@ public class ClientController {
         return "/parameter/clientList";
     }
 
+    //    Displaying Client Sorting into the webpage
+    @GetMapping("/clients/{field}")
+    public String getClientWithSort(Model model, @PathVariable("field") String field) {
+        //        Declaring Client List
+        List<Client> clients;
+
+        //    Sorting the Clients Table via Field
+        clients = clientService.getClientsWithSort(field);
+
+        //      Displaying Client List in the web Page
+        getModels(model);
+        model.addAttribute("clients", clients);
+        return "/parameter/clientList";
+    }
+
+    //    Displaying the Webpage of Add Form for Client
     @GetMapping("/clientAdd")
     public String getClientAdd(Model model){
         model.addAttribute("countries", countryService.getAllCountry());
         return "/parameter/clientAdd";
     }
 
+    //    Saving the Information in the Form to the Database and Displaying the List back
     @PostMapping("/clients")
     public String saveClient(Client client, RedirectAttributes redirectAttributes){
         clientService.saveClient(client);
@@ -62,6 +81,7 @@ public class ClientController {
         return "redirect:/clients";
     }
 
+    //    Deleting and Displaying a Client in the webpage
     @RequestMapping(value = "/clients/delete/{id}", method = {RequestMethod.GET, RequestMethod.DELETE})
     public String deleteClient(@PathVariable Integer id, RedirectAttributes redirectAttributes){
         clientService.deleteClient(id);
@@ -69,6 +89,7 @@ public class ClientController {
         return "redirect:/clients";
     }
 
+    //    Display a particular Client to edit
     @GetMapping("/clientEdit/{id}")
     public String getClientEdit(@PathVariable Integer id, Model model){
         getModels(model);
@@ -77,6 +98,7 @@ public class ClientController {
         return "/parameter/clientEdit";
     }
 
+    //    Saving a particular Client after edit and Displaying to the webpage
     @RequestMapping(value = "/client/update/{id}", method = {RequestMethod.GET, RequestMethod.PUT})
     public String editClient(Client client, RedirectAttributes redirectAttributes){
         clientService.saveClient(client);
@@ -84,6 +106,7 @@ public class ClientController {
         return "redirect:/clients";
     }
 
+    //    Displaying Client Details on the webpage
     @GetMapping("/clientDetails/{id}")
     public String getClientDetails(@PathVariable Integer id, Model model){
         Client client = clientService.editClient(id);

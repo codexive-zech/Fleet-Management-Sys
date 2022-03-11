@@ -3,6 +3,7 @@ package com.zechariah.fleetms.parameter.services;
 import com.zechariah.fleetms.parameter.models.Client;
 import com.zechariah.fleetms.parameter.repositories.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,5 +33,10 @@ public class ClientService {
     //    Search Filter Client Table
     public List<Client> findByKeyword(String keyword){
         return clientRepository.findByKeyword(keyword);
+    }
+
+    //        Sort the Client Table
+    public List<Client> getClientsWithSort(String field){
+        return clientRepository.findAll(Sort.by(field));
     }
 }

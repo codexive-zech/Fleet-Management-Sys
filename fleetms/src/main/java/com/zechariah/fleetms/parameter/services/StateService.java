@@ -4,6 +4,7 @@ import com.zechariah.fleetms.parameter.models.Client;
 import com.zechariah.fleetms.parameter.models.State;
 import com.zechariah.fleetms.parameter.repositories.StateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,5 +34,10 @@ public class StateService {
     //    Search Filter State Table
     public List<State> findByKeyword(String keyword){
         return stateRepository.findByKeyword(keyword);
+    }
+
+    //        Sort the State Table
+    public List<State> getStatesWithSort(String field){
+        return stateRepository.findAll(Sort.by(field));
     }
 }

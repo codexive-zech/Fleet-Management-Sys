@@ -23,13 +23,14 @@ public class StateController {
     @Autowired
     private CountryService countryService;
 
+    //    Getting all The Details meant to be rendered on the webpage
     public Model getModel(Model model){
         model.addAttribute("states", stateService.getStates());
         model.addAttribute("countries", countryService.getAllCountry());
         return model;
     }
 
-
+    //    Displaying the List of State in the webpage
     @GetMapping("/states")
     public String viewStates(Model model, String keyword){
         //    Declaring State List
@@ -45,13 +46,28 @@ public class StateController {
         model.addAttribute("states", states);
         return "/parameter/stateList";
     }
-    
+
+    //    Displaying State Sorting into the webpage
+    @GetMapping("/states/{field}")
+    public String viewStatesWithSort(Model model,@PathVariable String field){
+        //    Declaring State List
+        List<State> states;
+        //    Sorting the State Table via Field
+        states = stateService.getStatesWithSort(field);
+        //    Displaying State List in the web Page
+        getModel(model);
+        model.addAttribute("states", states);
+        return "/parameter/stateList";
+    }
+
+    //    Displaying the Webpage of Add Form for State
     @GetMapping("/stateAdd")
     public String getNewState(Model model){
         getModel(model);
         return "/parameter/stateAdd";
     }
 
+    //    Saving the Information in the Form to the Database and Displaying the List back
     @PostMapping("/states")
     public String addState(State state, RedirectAttributes redirectAttributes){
         stateService.saveState(state);
@@ -59,6 +75,7 @@ public class StateController {
         return "redirect:/states";
     }
 
+    //    Deleting and Displaying a State in the webpage
     @RequestMapping(value = "/states/delete/{id}", method = {RequestMethod.GET, RequestMethod.DELETE})
     public String deleteState(@PathVariable Integer id, RedirectAttributes redirectAttributes){
         stateService.deleteState(id);
@@ -66,6 +83,7 @@ public class StateController {
         return "redirect:/states";
     }
 
+    //    Display a particular State to edit
     @GetMapping("stateEdit/{id}")
     public String getEditState(@PathVariable Integer id, Model model){
         getModel(model);
@@ -73,6 +91,7 @@ public class StateController {
         return "parameter/stateEdit";
     }
 
+    //    Saving a particular State after edit and Displaying to the webpage
     @RequestMapping(value = "/state/update/{id}", method = {RequestMethod.GET, RequestMethod.PUT})
     public String editState(State state, RedirectAttributes redirectAttributes){
         stateService.saveState(state);
@@ -80,7 +99,7 @@ public class StateController {
         return "redirect:/states";
     }
 
-//    Display State
+//    Displaying State Details on the webpage
     @GetMapping("/stateDetails/{id}")
     public String getStateDetails(@PathVariable Integer id, Model model){
         State state = stateService.editState(id);
