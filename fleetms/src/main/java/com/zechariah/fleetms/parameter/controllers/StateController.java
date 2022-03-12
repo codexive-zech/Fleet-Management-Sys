@@ -7,6 +7,7 @@ import com.zechariah.fleetms.parameter.models.State;
 import com.zechariah.fleetms.parameter.services.CountryService;
 import com.zechariah.fleetms.parameter.services.StateService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -31,21 +32,48 @@ public class StateController {
     }
 
     //    Displaying the List of State in the webpage
+//    @GetMapping("/states")
+//    public String viewStates(Model model, String keyword){
+//        //    Declaring State List
+//        List<State> states;
+//        //    Checking to see if Keyword is null or not.
+//        if (keyword == null){
+//            states = stateService.getStates();
+//        } else {
+//           states = stateService.findByKeyword(keyword);
+//        }
+//        //    Displaying State List in the web Page
+//        getModel(model);
+//        model.addAttribute("states", states);
+//        return "/parameter/stateList";
+//    }
+
+    //    This endpoint will be triggered when no page number is given so this is the first page available
     @GetMapping("/states")
-    public String viewStates(Model model, String keyword){
-        //    Declaring State List
-        List<State> states;
-        //    Checking to see if Keyword is null or not.
-        if (keyword == null){
-            states = stateService.getStates();
-        } else {
-           states = stateService.findByKeyword(keyword);
-        }
+    public String getState(Model model){
+        return getOneStates(model, 1);
+    }
+
+    //    Displaying the List of Country in the webpage via Page
+    @GetMapping("/states/{pageNumber}")
+    public String getOneStates(Model model,@PathVariable("pageNumber") int currentPage){
+        //        Getting the Pageable Countries
+        Page<State> page = stateService.findPage(currentPage);
+        //        Retrieving The Total Number of Pages Available
+        int totalPages = page.getTotalPages();
+        //        Retrieving The Total Number of Pages Available
+        long totalItems = page.getTotalElements();
+        //        Retrieving the total list of countries available
+        List<State> states = page.getContent();
         //    Displaying State List in the web Page
         getModel(model);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("totalItems", totalItems);
+        model.addAttribute("currentPage", currentPage);
         model.addAttribute("states", states);
         return "/parameter/stateList";
     }
+//  ****************************
 
     //    Displaying State Sorting into the webpage
     @GetMapping("/states/{field}")

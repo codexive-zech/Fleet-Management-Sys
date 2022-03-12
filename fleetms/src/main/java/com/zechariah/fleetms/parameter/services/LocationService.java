@@ -5,6 +5,9 @@ import com.zechariah.fleetms.parameter.models.State;
 import com.zechariah.fleetms.parameter.repositories.LocationRepository;
 import com.zechariah.fleetms.parameter.repositories.StateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -40,5 +43,10 @@ public class LocationService {
     //        Sort the Location Table
     public List<Location> getLocationsWithSort(String field){
         return locationRepository.findAll(Sort.by(field));
+    }
+
+    public Page<Location> findPage(int pageNumber){
+        Pageable pageable = PageRequest.of(pageNumber - 1, 5);
+        return locationRepository.findAll(pageable);
     }
 }

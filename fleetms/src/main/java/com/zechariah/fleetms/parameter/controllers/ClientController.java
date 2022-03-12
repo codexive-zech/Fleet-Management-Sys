@@ -5,6 +5,7 @@ import com.zechariah.fleetms.parameter.services.ClientService;
 import com.zechariah.fleetms.parameter.services.CountryService;
 import com.zechariah.fleetms.parameter.services.StateService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -33,20 +34,46 @@ public class ClientController {
     }
 
     //    Displaying the List of Client in the webpage
+//    @GetMapping("/clients")
+//    public String getClient(Model model, String keyword){
+//        //        Declaring Client List
+//        List<Client> clients;
+//
+//        //    Checking to see if Keyword is null or not.
+//        if (keyword == null){
+//            clients = clientService.getClients();
+//        } else {
+//           clients = clientService.findByKeyword(keyword);
+//        }
+//
+//        //      Displaying Client List in the web Page
+//        getModels(model);
+//        model.addAttribute("clients", clients);
+//        return "/parameter/clientList";
+//    }
+
+    //    This endpoint will be triggered when no page number is given so this is the first page available
     @GetMapping("/clients")
-    public String getClient(Model model, String keyword){
-        //        Declaring Client List
-        List<Client> clients;
+    public String getAllPages(Model model){
+        return getOnePage(model, 1);
+    }
 
-        //    Checking to see if Keyword is null or not.
-        if (keyword == null){
-            clients = clientService.getClients();
-        } else {
-           clients = clientService.findByKeyword(keyword);
-        }
-
+    //    Displaying the List of Country in the webpage via Page
+    @GetMapping("/clients/{pageNumber}")
+    public String getOnePage(Model model, @PathVariable("pageNumber") int currentPage){
+        //        Getting the Pageable Countries
+        Page<Client> page = clientService.findPage(currentPage);
+        //        Retrieving The Total Number of Pages Available
+        int totalPages = page.getTotalPages();
+        //        Retrieving The Total Number of Pages Available
+        long totalItems = page.getTotalElements();
+        //        Retrieving the total list of countries available
+        List<Client> clients = page.getContent();
         //      Displaying Client List in the web Page
         getModels(model);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("totalItems", totalItems);
+        model.addAttribute("currentPage", currentPage);
         model.addAttribute("clients", clients);
         return "/parameter/clientList";
     }

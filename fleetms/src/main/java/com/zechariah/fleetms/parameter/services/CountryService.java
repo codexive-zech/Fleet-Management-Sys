@@ -3,6 +3,9 @@ package com.zechariah.fleetms.parameter.services;
 import com.zechariah.fleetms.parameter.models.Country;
 import com.zechariah.fleetms.parameter.repositories.CountryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +41,12 @@ public class CountryService {
 //        Sort the Country Table
     public List<Country> getAllCountryWithSort(String field){
         return countryRepository.findAll(Sort.by(field));
+    }
+
+//    Country Pagination
+    public Page<Country> findPage(int pageNumber){
+        Pageable pageable = PageRequest.of(pageNumber - 1, 5);
+        return countryRepository.findAll(pageable);
     }
 }
 

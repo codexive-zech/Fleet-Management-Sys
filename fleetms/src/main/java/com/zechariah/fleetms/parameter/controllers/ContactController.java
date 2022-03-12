@@ -3,6 +3,7 @@ package com.zechariah.fleetms.parameter.controllers;
 import com.zechariah.fleetms.parameter.models.Contact;
 import com.zechariah.fleetms.parameter.services.ContactService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,24 +17,49 @@ public class ContactController {
     @Autowired
     private ContactService contactService;
 
-    //    Displaying the List of Contact in the webpage
-    @GetMapping("contacts")
-    public String getContacts(Model model, String keyword){
-        //        Declaring Contact List
-        List<Contact> contacts;
+//    //    Displaying the List of Contact in the webpage
+//    @GetMapping("contacts")
+//    public String getContacts(Model model, String keyword){
+//        //        Declaring Contact List
+//        List<Contact> contacts;
+//
+//        //    Checking to see if Keyword is null or not.
+//        if (keyword == null){
+//            contacts = contactService.getContacts();
+//        } else {
+//            contacts = contactService.findByKeyword(keyword);
+//        }
+//
+//        //      Displaying Contact List in the web Page
+//        model.addAttribute("contacts", contacts);
+//        return "/parameter/contactList";
+//    }
 
-        //    Checking to see if Keyword is null or not.
-        if (keyword == null){
-            contacts = contactService.getContacts();
-        } else {
-            contacts = contactService.findByKeyword(keyword);
-        }
+    @GetMapping("/contacts")
+    public String getAllPages(Model model){
+        return getOneContacts(model, 1);
+    }
 
+    //    This endpoint will be triggered when no page number is given so this is the first page available
+    @GetMapping("/contacts/{pageNumber}")
+    public String getOneContacts(Model model, @PathVariable("pageNumber") int currentPage){
+        //        Getting the Pageable Countries
+        Page<Contact> page = contactService.findPage(currentPage);
+        //        Retrieving The Total Number of Pages Available
+        int totalPages = page.getTotalPages();
+        //        Retrieving The Total Number of Pages Available
+        long totalItems = page.getTotalElements();
+        //        Retrieving The Total Number of Pages Available
+        List<Contact> contacts = page.getContent();
         //      Displaying Contact List in the web Page
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("totalItems", totalItems);
+        model.addAttribute("currentPage", currentPage);
         model.addAttribute("contacts", contacts);
         return "/parameter/contactList";
     }
 
+//    ****************************
     //    Displaying Contact Sorting into the webpage
     @GetMapping("contacts/{field}")
     public String getContactsWithSort(Model model, @PathVariable String field){

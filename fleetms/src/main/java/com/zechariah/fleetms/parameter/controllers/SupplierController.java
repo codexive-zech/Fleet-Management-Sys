@@ -5,6 +5,7 @@ import com.zechariah.fleetms.parameter.services.CountryService;
 import com.zechariah.fleetms.parameter.services.StateService;
 import com.zechariah.fleetms.parameter.services.SupplierService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -33,21 +34,48 @@ public class SupplierController {
     }
 
 //    Displaying the List of Supplier in the webpage
+//    @GetMapping("/suppliers")
+//    public String getSuppliers(Model model, String keyword){
+//        //        Declaring Supplier List
+//        List<Supplier> suppliers;
+//        //    Checking to see if Keyword is null or not.
+//        if (keyword == null){
+//            suppliers = supplierService.getAllSuppliers();
+//        } else {
+//            suppliers = supplierService.findByKeyword(keyword);
+//        }
+//        //      Displaying Supplier List in the web Page
+//        getModel(model);
+//        model.addAttribute("suppliers", suppliers);
+//        return "/parameter/supplierList";
+//    }
+
+    //    This endpoint will be triggered when no page number is given so this is the first page available
     @GetMapping("/suppliers")
-    public String getSuppliers(Model model, String keyword){
-        //        Declaring Supplier List
-        List<Supplier> suppliers;
-        //    Checking to see if Keyword is null or not.
-        if (keyword == null){
-            suppliers = supplierService.getAllSuppliers();
-        } else {
-            suppliers = supplierService.findByKeyword(keyword);
-        }
+    public String getSuppliers(Model model){
+        return getOneSuppliers(model, 1);
+    }
+
+    //    Displaying the List of Country in the webpage via Page
+    @GetMapping("/suppliers/{pageNumber}")
+    public String getOneSuppliers(Model model, @PathVariable("pageNumber") int currentPage){
+        //        Getting the Pageable Countries
+        Page<Supplier> page = supplierService.findPage(currentPage);
+        //        Retrieving The Total Number of Pages Available
+        int totalPages = page.getTotalPages();
+        //        Retrieving The Total Number of Pages Available
+        long totalItems = page.getTotalElements();
+        //        Retrieving the total list of countries available
+        List<Supplier> suppliers = page.getContent();
         //      Displaying Supplier List in the web Page
         getModel(model);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("totalItems", totalItems);
+        model.addAttribute("currentPage", currentPage);
         model.addAttribute("suppliers", suppliers);
         return "/parameter/supplierList";
     }
+//    **********************
 
 //    Displaying Supplier Sorting into the webpage
     @GetMapping("/suppliers/{field}")

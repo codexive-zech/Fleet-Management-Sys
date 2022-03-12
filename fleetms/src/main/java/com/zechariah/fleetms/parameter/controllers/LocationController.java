@@ -7,6 +7,7 @@ import com.zechariah.fleetms.parameter.services.CountryService;
 import com.zechariah.fleetms.parameter.services.LocationService;
 import com.zechariah.fleetms.parameter.services.StateService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -34,22 +35,49 @@ public class LocationController {
         return model;
     }
 
-    //    Displaying the List of Location in the webpage
+//    //    Displaying the List of Location in the webpage
+//    @GetMapping("/locations")
+//    public String viewLocation(Model model, String keyword){
+//        //        Declaring Location List
+//        List<Location> locations;
+//        //    Checking to see if Keyword is null or not.
+//        if (keyword == null){
+//            locations = locationService.getLocations();
+//        } else {
+//            locations = locationService.findByKeyword(keyword);
+//        }
+//        //      Displaying Location List in the web Page
+//        getModel(model);
+//        model.addAttribute("locations", locations);
+//        return "/parameter/locationList";
+//    }
+
+    //    This endpoint will be triggered when no page number is given so this is the first page available
     @GetMapping("/locations")
-    public String viewLocation(Model model, String keyword){
-        //        Declaring Location List
-        List<Location> locations;
-        //    Checking to see if Keyword is null or not.
-        if (keyword == null){
-            locations = locationService.getLocations();
-        } else {
-            locations = locationService.findByKeyword(keyword);
-        }
+    public String getLocation(Model model){
+        return getOneLocation(model, 1);
+    }
+
+    //    Displaying the List of Country in the webpage via Page
+    @GetMapping("/locations/{pageNumber}")
+    public String getOneLocation(Model model, @PathVariable ("pageNumber") int currentPage){
+        //        Getting the Pageable Countries
+        Page<Location> page = locationService.findPage(currentPage);
+        //        Retrieving The Total Number of Pages Available
+        int totalPages = page.getTotalPages();
+        //        Retrieving The Total Number of Pages Available
+        long totalItems = page.getTotalElements();
+        //        Retrieving the total list of countries available
+        List<Location> locations = page.getContent();
         //      Displaying Location List in the web Page
         getModel(model);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("totalItems", totalItems);
+        model.addAttribute("currentPage", currentPage);
         model.addAttribute("locations", locations);
         return "/parameter/locationList";
     }
+//    *********************
 
     //    Displaying Location Sorting into the webpage
     @GetMapping("/locations/{field}")

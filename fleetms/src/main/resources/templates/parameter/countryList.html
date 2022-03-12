@@ -66,6 +66,14 @@
                         </tbody>
                     </table>
                     </div>
+                    <footer class="panel-footer">
+                        Total Item [[${totalItems}]] : Page [[${currentPage}]] of [[${totalPages}]]
+                        &nbsp; &nbsp; - &nbsp;
+                        <span th:each="i: ${#numbers.sequence(1, totalPages)}">
+                            <a th:href="@{'/countries/page/' + ${i}}">[[${i}]]</a>
+                        &nbsp; &nbsp;
+                        </span>
+                    </footer>
                 </section>
             </div>
         </div>
