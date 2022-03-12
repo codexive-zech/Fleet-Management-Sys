@@ -59,7 +59,7 @@ public class ClientController {
     }
 
     //    Displaying the List of Country in the webpage via Page
-    @GetMapping("/clients/{pageNumber}")
+    @GetMapping("/clients/page/{pageNumber}")
     public String getOnePage(Model model, @PathVariable("pageNumber") int currentPage){
         //        Getting the Pageable Countries
         Page<Client> page = clientService.findPage(currentPage);

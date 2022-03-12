@@ -41,7 +41,7 @@ public class ContactController {
     }
 
     //    This endpoint will be triggered when no page number is given so this is the first page available
-    @GetMapping("/contacts/{pageNumber}")
+    @GetMapping("/contacts/page/{pageNumber}")
     public String getOneContacts(Model model, @PathVariable("pageNumber") int currentPage){
         //        Getting the Pageable Countries
         Page<Contact> page = contactService.findPage(currentPage);

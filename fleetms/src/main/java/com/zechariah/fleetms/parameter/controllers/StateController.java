@@ -55,7 +55,7 @@ public class StateController {
     }
 
     //    Displaying the List of Country in the webpage via Page
-    @GetMapping("/states/{pageNumber}")
+    @GetMapping("/states/page/{pageNumber}")
     public String getOneStates(Model model,@PathVariable("pageNumber") int currentPage){
         //        Getting the Pageable Countries
         Page<State> page = stateService.findPage(currentPage);

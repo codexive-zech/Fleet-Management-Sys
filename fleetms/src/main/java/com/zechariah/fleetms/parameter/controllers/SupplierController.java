@@ -57,7 +57,7 @@ public class SupplierController {
     }
 
     //    Displaying the List of Country in the webpage via Page
-    @GetMapping("/suppliers/{pageNumber}")
+    @GetMapping("/suppliers/page/{pageNumber}")
     public String getOneSuppliers(Model model, @PathVariable("pageNumber") int currentPage){
         //        Getting the Pageable Countries
         Page<Supplier> page = supplierService.findPage(currentPage);

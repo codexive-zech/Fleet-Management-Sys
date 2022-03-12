@@ -59,7 +59,7 @@ public class LocationController {
     }
 
     //    Displaying the List of Country in the webpage via Page
-    @GetMapping("/locations/{pageNumber}")
+    @GetMapping("/locations/page/{pageNumber}")
     public String getOneLocation(Model model, @PathVariable ("pageNumber") int currentPage){
         //        Getting the Pageable Countries
         Page<Location> page = locationService.findPage(currentPage);
