@@ -39,9 +39,9 @@
                    <thead>
                     <tr>
 <!--               Adding the Endpoint for Data Sorting         -->
-                        <th><i class="icon_profile"></i><a th:href="@{/locations/description}">Description</a></th>
-                        <th><i class="icon_calendar"></i><a th:href="@{/locations/city}"> City</a></th>
-                        <th><i class="icon_mail_alt"></i> <a th:href="@{/locations/address}">Address</a></th>
+                        <th><i class="icon_profile"></i><a th:href="@{'/locations/page/' + ${currentPage} + '/description?sortDir=' + ${reverseSortDir}}">Description</a></th>
+                        <th><i class="icon_calendar"></i><a th:href="@{'/locations/page/' + ${currentPage} + '/city?sortDir=' + ${reverseSortDir}}"> City</a></th>
+                        <th><i class="icon_mail_alt"></i> <a th:href="@{'/locations/page/' + ${currentPage} + '/address?sortDir=' + ${reverseSortDir}}">Address</a></th>
 <!--                        <th><i class="icon_mail_alt"></i> State</th>-->
                         <th><i class="icon_mail_alt"></i> Details</th>
                         <th><i class="icon_cogs"></i> Action</th>
@@ -67,15 +67,46 @@
                     </tbody>
                 </table>
             </div>
-                <footer class="panel-footer">
+                </section>
+            <div class="text-center">
+                <footer class="text-center m-3">
                     Total Items [[${totalItems}]] : Page [[${currentPage}]] of [[${totalPages}]]
-                    &nbsp; &nbsp; - &nbsp;
-                    <span th:each="i: ${#numbers.sequence(1, totalPages)}">
-                            <a th:href="@{'/locations/page/' + ${i}}">[[${i}]]</a>
-                        &nbsp; &nbsp;
-                        </span>
                 </footer>
-            </section>
+                <ul class="pagination">
+                    <li class="page-item">
+                        <!--    If  the Current Page (maybe Page 2, 3, 4) is Greater than 1 then make First a Link and redirect to it  -->
+                        <a  class="page-link" th:if="${currentPage > 1}" th:href="@{/locations/page/1}">First</a>
+                        <!--    If  the Current Page is Not Greater than 1 then make First a Text  -->
+                        <span th:unless="${currentPage > 1}">First</span>
+                    </li>
+
+                    <li class="page-item">
+                        <!--    If  the Current Page (maybe Page 2, 3, 4) is Greater than 1 then make Previous a Link and redirect to it subtracting 1 from the current page    -->
+                        <a th:if="${currentPage > 1}" th:href="@{'/locations/page/' + ${currentPage - 1}}">Previous</a>
+                        <!--    If  the Current Page is Not Greater than 1 then make Previous a Text  -->
+                        <span th:unless="${currentPage > 1}">Previous</span>
+                    </li>
+                    <li class="page-item">
+                                <span th:each="i: ${#numbers.sequence(1, totalPages)}">
+                                <a th:href="@{'/locations/page/' + ${i}}">[[${i}]]</a>
+                                </span>
+                    </li>
+
+                    <li class="page-item">
+                        <!--    If  the Current Page (maybe Page 1, 2) is Less than the Total numbers of Pages (maybe 3, 4, 5) then make Next a Link and redirect to it adding 1 to the current page    -->
+                        <a th:if="${currentPage < totalPages}" th:href="@{'/locations/page/' + ${currentPage + 1}}">Next</a>
+                        <!--    If  the Current Page is Not Less than the Total number of pages  then make Next a Text  -->
+                        <span th:unless="${currentPage < totalPages}">Next</span>
+                    </li>
+
+                    <li class="page-item">
+                        <!--    If  the Current Page (maybe Page 1, 2) is Less than the Total numbers of Pages (maybe 3, 4, 5) then make Last a Link and redirect to it -->
+                        <a th:if="${currentPage < totalPages}" th:href="@{'/locations/page/' + ${totalPages}}">Last</a>
+                        <!--                       Display the otherwise here         -->
+                        <span th:unless="${currentPage < totalPages}">Last</span>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>

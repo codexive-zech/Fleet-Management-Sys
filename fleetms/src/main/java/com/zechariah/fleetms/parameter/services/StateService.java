@@ -40,8 +40,13 @@ public class StateService {
     }
 
     //        Sort the State Table
-    public List<State> getStatesWithSort(String field){
-        return stateRepository.findAll(Sort.by(field));
+    public Page<State> findClientWithSorting(String field, String direction, int pageNumber){
+//        Sorting Client By Direction with an If Statement
+        Sort sort = direction.equalsIgnoreCase(Sort.Direction.ASC.name())?
+                Sort.by(field).ascending(): Sort.by(field).descending();
+//        Adding the Sorted Content into making it Pageable
+        Pageable pageable = PageRequest.of(pageNumber - 1,5, sort);
+        return stateRepository.findAll(pageable);
     }
 
     public Page<State> findPage(int pageNumber){

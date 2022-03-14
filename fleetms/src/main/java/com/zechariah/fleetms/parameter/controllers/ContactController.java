@@ -1,5 +1,6 @@
 package com.zechariah.fleetms.parameter.controllers;
 
+import com.zechariah.fleetms.parameter.models.Client;
 import com.zechariah.fleetms.parameter.models.Contact;
 import com.zechariah.fleetms.parameter.services.ContactService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.websocket.server.PathParam;
 import java.util.List;
 
 @Controller
@@ -59,20 +61,32 @@ public class ContactController {
         return "/parameter/contactList";
     }
 
-//    ****************************
-    //    Displaying Contact Sorting into the webpage
-    @GetMapping("contacts/{field}")
-    public String getContactsWithSort(Model model, @PathVariable String field){
-        //       Declaring Contact List
-        List<Contact> contacts;
+//    Displaying Contact Sorting and Paging into the webpage
+@GetMapping("/contacts/page/{pageNumber}/{field}")
+public String getPageWithSort(Model model,
+                              @PathVariable("pageNumber") int currentPage,
+                              @PathVariable String field,
+                              @PathParam("sortDir") String sortDir){
 
-        //    Sorting the Contact Table via Field
-        contacts = contactService.getContactsWithSort(field);
+//        Getting the Contact Sorting and page available from the service
+    Page<Contact> page = contactService.findClientWithSorting(field, sortDir, currentPage);
 
-        //      Displaying Contact List in the web Page
-        model.addAttribute("contacts", contacts);
-        return "/parameter/contactList";
-    }
+//        Display the list of Contact in a Page Format
+    List<Contact> contacts = page.getContent();
+    //        Retrieving The Total Number of Pages Available
+    int totalPages = page.getTotalPages();
+    //        Retrieving The Total Number of Items Available
+    long totalItems = page.getTotalElements();
+
+    //      Displaying Contact List in the web Page
+    model.addAttribute("currentPage", currentPage);
+    model.addAttribute("totalPages", totalPages);
+    model.addAttribute("totalItems", totalItems);
+    model.addAttribute("sortDir", sortDir);
+    model.addAttribute("reverseSortDir", sortDir.equals("asc")?"desc":"asc");
+    model.addAttribute("contacts", contacts);
+    return "/parameter/contactList";
+}
 
     //    Displaying the Webpage of Add Form for Contact
     @GetMapping("/contactAdd")

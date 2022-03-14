@@ -1,5 +1,6 @@
 package com.zechariah.fleetms.parameter.services;
 
+import com.zechariah.fleetms.parameter.models.Country;
 import com.zechariah.fleetms.parameter.models.Location;
 import com.zechariah.fleetms.parameter.models.State;
 import com.zechariah.fleetms.parameter.repositories.LocationRepository;
@@ -40,9 +41,14 @@ public class LocationService {
         return locationRepository.findByKeyword(keyword);
     }
 
-    //        Sort the Location Table
-    public List<Location> getLocationsWithSort(String field){
-        return locationRepository.findAll(Sort.by(field));
+    //        Sort the Country Table
+    public Page<Location> findClientWithSorting(String field, String direction, int pageNumber){
+//        Sorting Country By Direction with an If Statement
+        Sort sort = direction.equalsIgnoreCase(Sort.Direction.ASC.name())?
+                Sort.by(field).ascending(): Sort.by(field).descending();
+//        Adding the Sorted Content into making it Pageable
+        Pageable pageable = PageRequest.of(pageNumber - 1,5, sort);
+        return locationRepository.findAll(pageable);
     }
 
     public Page<Location> findPage(int pageNumber){

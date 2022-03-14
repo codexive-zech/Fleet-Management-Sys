@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.websocket.server.PathParam;
 import java.util.List;
 
 @Controller
@@ -65,7 +66,7 @@ public class ClientController {
         Page<Client> page = clientService.findPage(currentPage);
         //        Retrieving The Total Number of Pages Available
         int totalPages = page.getTotalPages();
-        //        Retrieving The Total Number of Pages Available
+        //        Retrieving The Total Number of Items Available
         long totalItems = page.getTotalElements();
         //        Retrieving the total list of countries available
         List<Client> clients = page.getContent();
@@ -78,17 +79,29 @@ public class ClientController {
         return "/parameter/clientList";
     }
 
-    //    Displaying Client Sorting into the webpage
-    @GetMapping("/clients/{field}")
-    public String getClientWithSort(Model model, @PathVariable("field") String field) {
-        //        Declaring Client List
-        List<Client> clients;
+    //    Displaying Client Sorting and Paging into the webpage
+    @GetMapping("/clients/page/{pageNumber}/{field}")
+    public String getPageWithSort(Model model,
+                                  @PathVariable("pageNumber") int currentPage,
+                                  @PathVariable String field,
+                                  @PathParam("sortDir") String sortDir){
 
-        //    Sorting the Clients Table via Field
-        clients = clientService.getClientsWithSort(field);
+//        Getting the Client Sorting and page available from the service
+        Page<Client> page = clientService.findClientWithSorting(field, sortDir, currentPage);
+
+//        Display the list of Client in a Page Format
+        List<Client> clients = page.getContent();
+        //        Retrieving The Total Number of Pages Available
+        int totalPages = page.getTotalPages();
+        //        Retrieving The Total Number of Items Available
+        long totalItems = page.getTotalElements();
 
         //      Displaying Client List in the web Page
-        getModels(model);
+        model.addAttribute("currentPage", currentPage);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("totalItems", totalItems);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("reverseSortDir", sortDir.equals("asc")?"desc":"asc");
         model.addAttribute("clients", clients);
         return "/parameter/clientList";
     }

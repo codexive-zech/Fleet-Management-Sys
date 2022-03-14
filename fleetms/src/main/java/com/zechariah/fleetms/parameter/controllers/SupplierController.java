@@ -1,5 +1,6 @@
 package com.zechariah.fleetms.parameter.controllers;
 
+import com.zechariah.fleetms.parameter.models.Client;
 import com.zechariah.fleetms.parameter.models.Supplier;
 import com.zechariah.fleetms.parameter.services.CountryService;
 import com.zechariah.fleetms.parameter.services.StateService;
@@ -11,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.websocket.server.PathParam;
 import java.util.List;
 
 @Controller
@@ -75,17 +77,30 @@ public class SupplierController {
         model.addAttribute("suppliers", suppliers);
         return "/parameter/supplierList";
     }
-//    **********************
 
-//    Displaying Supplier Sorting into the webpage
-    @GetMapping("/suppliers/{field}")
-    public String getSuppliersWithSort(Model model, @PathVariable String field){
-        //        Declaring Supplier List
-        List<Supplier> suppliers;
-        //    Sorting the Supplier Table via Field
-        suppliers = supplierService.getAllSuppliersWithSort(field);
+    //    Displaying Supplier Sorting and Paging into the webpage
+    @GetMapping("/suppliers/page/{pageNumber}/{field}")
+    public String getPageWithSort(Model model,
+                                  @PathVariable("pageNumber") int currentPage,
+                                  @PathVariable String field,
+                                  @PathParam("sortDir") String sortDir){
+
+//        Getting the Supplier Sorting and page available from the service
+        Page<Supplier> page = supplierService.findClientWithSorting(field, sortDir, currentPage);
+
+//        Display the list of Supplier in a Page Format
+        List<Supplier> suppliers = page.getContent();
+        //        Retrieving The Total Number of Pages Available
+        int totalPages = page.getTotalPages();
+        //        Retrieving The Total Number of Items Available
+        long totalItems = page.getTotalElements();
+
         //      Displaying Supplier List in the web Page
-        getModel(model);
+        model.addAttribute("currentPage", currentPage);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("totalItems", totalItems);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("reverseSortDir", sortDir.equals("asc")?"desc":"asc");
         model.addAttribute("suppliers", suppliers);
         return "/parameter/supplierList";
     }

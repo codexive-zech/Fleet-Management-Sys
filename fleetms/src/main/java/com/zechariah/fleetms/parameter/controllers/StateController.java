@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.websocket.server.PathParam;
 import java.util.List;
 
 @Controller
@@ -73,17 +74,30 @@ public class StateController {
         model.addAttribute("states", states);
         return "/parameter/stateList";
     }
-//  ****************************
 
-    //    Displaying State Sorting into the webpage
-    @GetMapping("/states/{field}")
-    public String viewStatesWithSort(Model model,@PathVariable String field){
-        //    Declaring State List
-        List<State> states;
-        //    Sorting the State Table via Field
-        states = stateService.getStatesWithSort(field);
-        //    Displaying State List in the web Page
-        getModel(model);
+    //    Displaying State Sorting and Paging into the webpage
+    @GetMapping("/states/page/{pageNumber}/{field}")
+    public String getPageWithSort(Model model,
+                                  @PathVariable("pageNumber") int currentPage,
+                                  @PathVariable String field,
+                                  @PathParam("sortDir") String sortDir){
+
+//        Getting the State Sorting and page available from the service
+        Page<State> page = stateService.findClientWithSorting(field, sortDir, currentPage);
+
+//        Display the list of State in a Page Format
+        List<State> states = page.getContent();
+        //        Retrieving The Total Number of Pages Available
+        int totalPages = page.getTotalPages();
+        //        Retrieving The Total Number of Items Available
+        long totalItems = page.getTotalElements();
+
+        //      Displaying State List in the web Page
+        model.addAttribute("currentPage", currentPage);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("totalItems", totalItems);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("reverseSortDir", sortDir.equals("asc")?"desc":"asc");
         model.addAttribute("states", states);
         return "/parameter/stateList";
     }

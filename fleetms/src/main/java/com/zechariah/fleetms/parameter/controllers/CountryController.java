@@ -1,5 +1,6 @@
 package com.zechariah.fleetms.parameter.controllers;
 
+import com.zechariah.fleetms.parameter.models.Client;
 import com.zechariah.fleetms.parameter.models.Country;
 import com.zechariah.fleetms.parameter.services.CountryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,18 +61,31 @@ public class CountryController {
         return "parameter/countryList";
     }
 
-    //    Displaying Country Sorting into the webpage
-    @GetMapping("/countries/{field}")
-    public String getAllCountryWithSort(Model model, @PathVariable ("field") String field){
-//        Declaring Country List
-        List<Country> countries;
+    //    Displaying Country Sorting and Paging into the webpage
+    @GetMapping("/countries/page/{pageNumber}/{field}")
+    public String getPageWithSort(Model model,
+                                  @PathVariable("pageNumber") int currentPage,
+                                  @PathVariable String field,
+                                  @PathParam("sortDir") String sortDir){
 
-//    Sorting the Country Table via Field
-        countries = countryService.getAllCountryWithSort(field);
+//        Getting the Country Sorting and page available from the service
+        Page<Country> page = countryService.findClientWithSorting(field, sortDir, currentPage);
 
-//      Displaying Country List in the web Page
+//        Display the list of Country in a Page Format
+        List<Country> countries = page.getContent();
+        //        Retrieving The Total Number of Pages Available
+        int totalPages = page.getTotalPages();
+        //        Retrieving The Total Number of Items Available
+        long totalItems = page.getTotalElements();
+
+        //      Displaying Country List in the web Page
+        model.addAttribute("currentPage", currentPage);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("totalItems", totalItems);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("reverseSortDir", sortDir.equals("asc")?"desc":"asc");
         model.addAttribute("countries", countries);
-        return "parameter/countryList";
+        return "/parameter/countryList";
     }
 
     //    Displaying the Webpage of Add Form for Country

@@ -39,8 +39,13 @@ public class ClientService {
     }
 
     //        Sort the Client Table
-    public List<Client> getClientsWithSort(String field){
-        return clientRepository.findAll(Sort.by(field));
+    public Page<Client> findClientWithSorting(String field, String direction, int pageNumber){
+//        Sorting Client By Direction with an If Statement
+        Sort sort = direction.equalsIgnoreCase(Sort.Direction.ASC.name())?
+                Sort.by(field).ascending(): Sort.by(field).descending();
+//        Adding the Sorted Content into making it Pageable
+        Pageable pageable = PageRequest.of(pageNumber - 1,5, sort);
+        return clientRepository.findAll(pageable);
     }
 
 //    Pagination

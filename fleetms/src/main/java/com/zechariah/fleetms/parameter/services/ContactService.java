@@ -1,5 +1,6 @@
 package com.zechariah.fleetms.parameter.services;
 
+import com.zechariah.fleetms.parameter.models.Client;
 import com.zechariah.fleetms.parameter.models.Contact;
 import com.zechariah.fleetms.parameter.repositories.ContactRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,10 +40,14 @@ public class ContactService {
     }
 
     //        Sort the Contact Table
-    public List<Contact> getContactsWithSort(String field){
-        return contactRepository.findAll(Sort.by(field));
+    public Page<Contact> findClientWithSorting(String field, String direction, int pageNumber){
+//        Sorting Contact By Direction with an If Statement
+        Sort sort = direction.equalsIgnoreCase(Sort.Direction.ASC.name())?
+                Sort.by(field).ascending(): Sort.by(field).descending();
+//        Adding the Sorted Content into making it Pageable
+        Pageable pageable = PageRequest.of(pageNumber - 1,5, sort);
+        return contactRepository.findAll(pageable);
     }
-
 //    Pagination
     public Page<Contact> findPage(int pageNumber){
         Pageable pageable = PageRequest.of(pageNumber - 1, 5);

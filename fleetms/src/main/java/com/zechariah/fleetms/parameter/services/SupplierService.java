@@ -1,5 +1,6 @@
 package com.zechariah.fleetms.parameter.services;
 
+import com.zechariah.fleetms.parameter.models.State;
 import com.zechariah.fleetms.parameter.models.Supplier;
 import com.zechariah.fleetms.parameter.repositories.SupplierRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,9 +39,14 @@ public class SupplierService {
         return supplierRepository.findByKeyword(keyword);
     }
 
-    //        Sort the Supplier Table
-    public List<Supplier> getAllSuppliersWithSort(String field){
-        return supplierRepository.findAll(Sort.by(field));
+//        Sort the State Table
+    public Page<Supplier> findClientWithSorting(String field, String direction, int pageNumber){
+//        Sorting Client By Direction with an If Statement
+        Sort sort = direction.equalsIgnoreCase(Sort.Direction.ASC.name())?
+                Sort.by(field).ascending(): Sort.by(field).descending();
+//        Adding the Sorted Content into making it Pageable
+        Pageable pageable = PageRequest.of(pageNumber - 1,5, sort);
+        return supplierRepository.findAll(pageable);
     }
 
     public Page<Supplier> findPage(int pageNumber){
