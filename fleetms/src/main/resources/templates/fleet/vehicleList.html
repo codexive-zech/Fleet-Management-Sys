@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="_layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Vehicle List</title>
+</head>
+<body>
+    <div layout:fragment="content">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div th:if="${message != null}" class="alert alert-success text-center h4" th:text="${message}"></div>
+                <section class="panel">
+                    <div class="panel-body">
+                    <!--    Search Filter Table Data    -->
+                        <form th:action="@{/vehicles}">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <a href="/vehicleAdd" class="btn btn-primary">Add New Vehicle</a>
+                            </div>
+                            <div class="col-lg-3">
+                                <input type="text" name="keyword" class="form-control">
+                            </div>
+                            <div class="col-lg-3">
+                                <input type="submit" value="Search" class="form-control btn-success">
+                            </div>
+                        </div>
+                        </form>
+<!--                           End Search Filter Table Data-->
+                    </div>
+                </section>
+                <section class="panel">
+                    <header class="panel-heading">
+                       List of Vehicle
+                    </header>
+                    <div class="table-responsive">
+                    <table class="table table-striped table-advance table-hover">
+                        <thead>
+                        <tr>
+                            <!--               Adding the Endpoint for Data Sorting         -->
+                            <th><i class="icon_profile"></i><a th:href="@{'/vehicles/page/' + ${currentPage} + '/name?sortDir=' + ${reverseSortDir}}">Name</a></th>
+                            <th><i class="icon_calendar"></i>Vehicle Number</th>
+                            <th><i class="icon_mail_alt"></i>Registration Date</th>
+                            <th><i class="icon_pin_alt"></i>Purchase Time</th>
+                            <th><i class="icon_mobile"></i>Description</th>
+                            <th><i class="icon_cogs"></i> Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="vehicle : ${vehicles}">
+                            <td th:text="${vehicle.name}"></td>
+                            <td th:text="${vehicle.vehicleNumber}"></td>
+                            <td th:text="${#dates.format(vehicle.registrationDate, 'dd-MM-yyyy')}"></td>
+                            <td th:text="${vehicle.purchaseTime}"></td>
+                            <td th:text="${vehicle .description}"></td>
+                            <td>
+                                <div class="btn-group">
+                                    <a class="btn btn-primary" th:href="@{'/vehicleDetails/' + ${vehicle.id}}"><i class="icon_plus_alt2"></i></a>
+                                    <a class="btn btn-success" th:href="@{'/vehicleEdit/' + ${vehicle.id}}"><i class="icon_check_alt2"></i></a>
+                                    <a class="btn btn-danger" th:href="@{'/vehicles/delete/' + ${vehicle.id}}"><i class="icon_close_alt2"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    </div>
+                   </section>
+                <div class="text-center">
+                    <footer class="text-center m-3">
+                        Total Items [[${totalItems}]] : Page [[${currentPage}]] of [[${totalPages}]]
+                    </footer>
+                    <ul class="pagination">
+                        <li class="page-item">
+                            <!--    If  the Current Page (maybe Page 2, 3, 4) is Greater than 1 then make First a Link and redirect to it  -->
+                            <a  class="page-link disabled" th:if="${currentPage > 1}" th:href="@{/vehicles/page/1}">First</a>
+                            <!--    If  the Current Page is Not Greater than 1 then make First a Text  -->
+                            <span th:unless="${currentPage > 1}">First</span>
+                        </li>
+
+                        <li class="page-item">
+                            <!--    If  the Current Page (maybe Page 2, 3, 4) is Greater than 1 then make Previous a Link and redirect to it subtracting 1 from the current page    -->
+                            <a th:if="${currentPage > 1}" th:href="@{'/vehicles/page/' + ${currentPage - 1}}">Previous</a>
+                            <!--    If  the Current Page is Not Greater than 1 then make Previous a Text  -->
+                            <span th:unless="${currentPage > 1}">Previous</span>
+                        </li>
+                        <li class="page-item">
+                                <span th:each="i: ${#numbers.sequence(1, totalPages)}">
+                                <a th:href="@{'/vehicles/page/' + ${i}}">[[${i}]]</a>
+                                </span>
+                        </li>
+
+                        <li class="page-item">
+                            <!--    If  the Current Page (maybe Page 1, 2) is Less than the Total numbers of Pages (maybe 3, 4, 5) then make Next a Link and redirect to it adding 1 to the current page    -->
+                            <a th:if="${currentPage < totalPages}" th:href="@{'/vehicles/page/' + ${currentPage + 1}}">Next</a>
+                            <!--    If  the Current Page is Not Less than the Total number of pages  then make Next a Text  -->
+                            <span th:unless="${currentPage < totalPages}">Next</span>
+                        </li>
+
+                        <li class="page-item">
+                            <!--    If  the Current Page (maybe Page 1, 2) is Less than the Total numbers of Pages (maybe 3, 4, 5) then make Last a Link and redirect to it -->
+                            <a th:if="${currentPage < totalPages}" th:href="@{'/vehicles/page/' + ${totalPages}}">Last</a>
+                            <!--                       Display the otherwise here         -->
+                            <span th:unless="${currentPage < totalPages}">Last</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

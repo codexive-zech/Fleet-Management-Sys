@@ -109,6 +109,7 @@ public class ClientController {
     //    Displaying the Webpage of Add Form for Client
     @GetMapping("/clientAdd")
     public String getClientAdd(Model model){
+//        Rendering the Country model (Data) available on the webpage
         model.addAttribute("countries", countryService.getAllCountry());
         return "/parameter/clientAdd";
     }
@@ -116,7 +117,9 @@ public class ClientController {
     //    Saving the Information in the Form to the Database and Displaying the List back
     @PostMapping("/clients")
     public String saveClient(Client client, RedirectAttributes redirectAttributes){
+//        Calling on to the save method for Client in other to carry out Post Request
         clientService.saveClient(client);
+//        Sending back a Notification in the webpage when a Client has been saved
         redirectAttributes.addFlashAttribute("message", "Client Has Been Added Successfully");
         return "redirect:/clients";
     }
@@ -124,7 +127,9 @@ public class ClientController {
     //    Deleting and Displaying a Client in the webpage
     @RequestMapping(value = "/clients/delete/{id}", method = {RequestMethod.GET, RequestMethod.DELETE})
     public String deleteClient(@PathVariable Integer id, RedirectAttributes redirectAttributes){
+        //        Calling on to the delete method for Client in other to carry out Delete Request
         clientService.deleteClient(id);
+        //        Sending back a Notification in the webpage when a Client has been deleted
         redirectAttributes.addFlashAttribute("message", "Client Has Benn Deleted Successfully.");
         return "redirect:/clients";
     }
@@ -132,8 +137,11 @@ public class ClientController {
     //    Display a particular Client to edit
     @GetMapping("/clientEdit/{id}")
     public String getClientEdit(@PathVariable Integer id, Model model){
-        getModels(model);
+        //        Calling on to the edit method for Client in other to carry out Put Request
         Client client = clientService.editClient(id);
+//        Displaying the required Model that needs to be visible in the webpage alone
+        getModels(model);
+//        Displaying the Client back to the Webpage
         model.addAttribute("client", client);
         return "/parameter/clientEdit";
     }
@@ -141,7 +149,9 @@ public class ClientController {
     //    Saving a particular Client after edit and Displaying to the webpage
     @RequestMapping(value = "/client/update/{id}", method = {RequestMethod.GET, RequestMethod.PUT})
     public String editClient(Client client, RedirectAttributes redirectAttributes){
+        //        Calling on to the save method for Client in other to carry out Post Request
         clientService.saveClient(client);
+        //        Sending back a Notification in the webpage when a Client has been Updated
         redirectAttributes.addFlashAttribute("message", "Client Has Been Updated successfully.");
         return "redirect:/clients";
     }
@@ -149,7 +159,9 @@ public class ClientController {
     //    Displaying Client Details on the webpage
     @GetMapping("/clientDetails/{id}")
     public String getClientDetails(@PathVariable Integer id, Model model){
+        //        Calling on to the edit method for Client in other to carry out Put Request
         Client client = clientService.editClient(id);
+        //        Displaying the Client back to the Webpage
         model.addAttribute("client", client);
         return "/parameter/clientDetails";
     }

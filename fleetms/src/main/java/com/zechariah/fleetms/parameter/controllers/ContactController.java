@@ -97,7 +97,9 @@ public String getPageWithSort(Model model,
     //    Saving the Information in the Form to the Database and Displaying the List back
     @PostMapping("/contacts")
     public String addNewContact(Contact contact, RedirectAttributes redirectAttributes){
+        //        Calling on to the save method for Contact in other to carry out Post Request
         contactService.saveContact(contact);
+        //        Sending back a Notification in the webpage when a Contact has been saved
         redirectAttributes.addFlashAttribute("message", "Contact Has Been Added Successfully");
         return "redirect:/contacts";
     }
@@ -105,7 +107,9 @@ public String getPageWithSort(Model model,
     //    Deleting and Displaying a Contact in the webpage
     @RequestMapping(value = "/contacts/delete/{id}", method = { RequestMethod.GET, RequestMethod.DELETE})
     public String deleteContact(@PathVariable Integer id, RedirectAttributes redirectAttributes){
+        //        Calling on to the delete method for Contact in other to carry out Delete Request
         contactService.deleteContact(id);
+        //        Sending back a Notification in the webpage when a Contact has been deleted
         redirectAttributes.addFlashAttribute("message", "Contact Has Been Deleted Successfully");
         return "redirect:/contacts";
     }
@@ -113,7 +117,9 @@ public String getPageWithSort(Model model,
     //    Display a particular Contact to edit
     @GetMapping("/contactEdit/{id}")
     public String editContact(@PathVariable Integer id, Model model){
+        //        Calling on to the edit method for Contact in other to carry out Put Request
         Contact contacts = contactService.editContact(id);
+        //        Displaying the Contact back to the Webpage
         model.addAttribute("contact", contacts);
         return "/parameter/contactEdit";
     }
@@ -121,7 +127,9 @@ public String getPageWithSort(Model model,
     //    Saving a particular Contact after edit and Displaying to the webpage
     @RequestMapping(value = "/contacts/update/{id}", method = {RequestMethod.GET, RequestMethod.PUT})
     public String editContact(Contact contact, RedirectAttributes redirectAttributes){
+        //        Calling on to the save method for Contact in other to carry out Post Request
         contactService.saveContact(contact);
+        //        Sending back a Notification in the webpage when a Contact has been Updated
         redirectAttributes.addFlashAttribute("message", "Contact Has Been Updated Successfully");
         return "redirect:/contacts";
     }
@@ -129,7 +137,9 @@ public String getPageWithSort(Model model,
     //    Displaying Contact Details on the webpage
     @GetMapping("/contactDetails/{id}")
     public String displayContact(@PathVariable Integer id, Model model){
+        //        Calling on to the edit method for Contact in other to carry out Put Request
         Contact contact = contactService.editContact(id);
+        //        Displaying the Contact back to the Webpage
         model.addAttribute("contact", contact);
         return "/parameter/contactDetails";
     }
